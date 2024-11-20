@@ -1,4 +1,5 @@
 "use client";
+import { LoadingScreen } from "@/components";
 import { ROUTE_SING_IN } from "@/constants";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
@@ -11,5 +12,5 @@ export default function HomePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <div>HomePage</div>;
+  return <LoadingScreen />;
 }
