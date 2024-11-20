@@ -2,8 +2,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Box, TextField, Button, Typography, Link } from "@mui/material";
 import { SingInRequest } from "@/features/sign-in/models";
+import { useRouter } from "next/navigation";
 
 export function SingInForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -64,7 +66,8 @@ export function SingInForm() {
           ¿Olvidaste tu contraseña?
         </Link>
         <Button
-          type="submit"
+          onClick={() => router.push("/users")}
+          //type="submit"
           variant="contained"
           color="primary"
           fullWidth
