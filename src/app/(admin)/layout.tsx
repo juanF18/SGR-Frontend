@@ -1,7 +1,9 @@
 "use client";
 import React from "react";
-import { CustomDrawer } from "@/components/CustomDrawer"; // Importa el CustomDrawer
-import { Box } from "@mui/material";
+import { CustomDrawer } from "@/components/CustomDrawer";
+import { CustomTopBar } from "@/components/CustomTopBar";
+import { PageProvider } from "@/context/PageContext";
+import { Box, Toolbar } from "@mui/material";
 
 export default function AdminLayout({
   children,
@@ -9,21 +11,26 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh" }}>
-      {/* Drawer a la izquierda */}
-      <CustomDrawer />
-      {/* Contenido principal */}
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          backgroundColor: "background.default",
-          color: "text.primary",
-        }}
-      >
-        {children}
+    <PageProvider>
+      <Box sx={{ display: "flex", minHeight: "100vh" }}>
+        {/* Drawer */}
+        <CustomDrawer />
+        {/* Top Bar */}
+        <CustomTopBar />
+        {/* Contenido principal */}
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            backgroundColor: "background.default",
+            color: "text.primary",
+          }}
+        >
+          <Toolbar /> {/* Espaciador para evitar solapamiento con el TopBar */}
+          {children}
+        </Box>
       </Box>
-    </Box>
+    </PageProvider>
   );
 }
