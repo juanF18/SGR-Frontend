@@ -1,6 +1,8 @@
+import { IconType } from "react-icons";
+
 export interface MenuItem {
   label: string;
-  icon: React.ReactNode;
+  icon: IconType;
   route?: string;
   subOptions?: SubMenuItem[];
 }

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FaUsersLine } from "react-icons/fa6";
 import {
   Drawer,
   Box,
@@ -17,8 +16,8 @@ import {
   StarBorder,
   Menu as MenuIcon,
 } from "@mui/icons-material";
-import { MenuItem } from "@/models";
 import { useRouter } from "next/navigation";
+import { menuItems } from "@/constants";
 
 export function CustomDrawer() {
   const router = useRouter();
@@ -45,14 +44,6 @@ export function CustomDrawer() {
       router.push(route);
     }
   };
-
-  const menuItems: MenuItem[] = [
-    {
-      label: "Usuarios",
-      icon: <FaUsersLine size={30} />,
-      route: "/users",
-    },
-  ];
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -114,7 +105,7 @@ export function CustomDrawer() {
                     mr: 1,
                   }}
                 >
-                  {item.icon}
+                  <item.icon size={25} /> {/* Renderiza el icono instanciado */}
                 </ListItemIcon>
                 {open && <ListItemText primary={item.label} />}
                 {item.subOptions &&
@@ -135,14 +126,14 @@ export function CustomDrawer() {
                           pl: 4,
                           backgroundColor: "white",
                           margin: "4px 16px",
-                          borderRadius: "8px", // Bordes redondeados
-                          boxShadow: "none", // Elimina sombra
-                          border: "none", // Asegura que no haya borde
+                          borderRadius: "8px",
+                          boxShadow: "none",
+                          border: "none",
                           "&:hover": {
-                            backgroundColor: "#2196f3", // Azul en hover
-                            color: "white", // Texto blanco en hover
+                            backgroundColor: "#2196f3",
+                            color: "white",
                           },
-                          overflow: "hidden", // Asegura que no haya esquinas planas
+                          overflow: "hidden",
                         }}
                         onClick={() => handleNavigation(subItem.route)}
                       >
