@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.13.5",
     "@mui/icons-material": "^6.1.8",
     "@mui/material": "^6.1.8",
+    "axios": "^1.7.8",
     "material-react-table": "^3.0.1",
     "next": "15.0.3",
     "react": "^18.0.0",

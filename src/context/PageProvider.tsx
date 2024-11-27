@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AxiosInterceptorProvider } from "./AxiosInterceptor";
 
 interface ToastProviderProps {
   children: ReactNode;
@@ -9,7 +10,7 @@ interface ToastProviderProps {
 export const PageProvider: React.FC<ToastProviderProps> = ({ children }) => {
   return (
     <>
-      {children}
+      <AxiosInterceptorProvider>{children}</AxiosInterceptorProvider>
       <ToastContainer
         position="top-right"
         autoClose={5000}
