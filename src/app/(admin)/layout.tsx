@@ -22,12 +22,12 @@ export default function AdminLayout({
           component="main"
           sx={{
             flexGrow: 1,
-            p: 3,
+            p: 1,
             backgroundColor: "background.default",
             color: "text.primary",
           }}
         >
-          <Toolbar /> {/* Espaciador para evitar solapamiento con el TopBar */}
+          <Toolbar />
           {children}
         </Box>
       </Box>
