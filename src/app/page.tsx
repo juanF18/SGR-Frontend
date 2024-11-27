@@ -3,6 +3,7 @@ import { LoadingScreen } from "@/components";
 import { ROUTE_SING_IN } from "@/constants";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function HomePage() {
   const router = useRouter();
