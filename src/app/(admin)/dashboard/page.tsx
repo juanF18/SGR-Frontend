@@ -7,7 +7,7 @@ export default function DashBoardPage() {
   const { setPageTitle } = useAdminContext();
 
   useEffect(() => {
-    setPageTitle("Usuarios");
+    setPageTitle("Dashboard");
   }, [setPageTitle]);
   return <DashBoardContainer />;
 }
