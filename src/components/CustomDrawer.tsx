@@ -10,13 +10,8 @@ import {
   Collapse,
   IconButton,
 } from "@mui/material";
-import {
-  ExpandLess,
-  ExpandMore,
-  StarBorder,
-  Menu as MenuIcon,
-} from "@mui/icons-material";
-import { useRouter } from "next/navigation";
+import { StarBorder, Menu as MenuIcon } from "@mui/icons-material";
+import { useRouter, usePathname } from "next/navigation";
 import { MENU_ITEMS } from "@/constants";
 import { useAdminContext } from "@/context/PageContext";
 
@@ -24,6 +19,7 @@ const DRAWER_WIDTH = 240;
 const CLOSED_DRAWER_WIDTH = 60;
 
 export function CustomDrawer() {
+  const pathname = usePathname();
   const router = useRouter();
   const { drawerOpen, toggleDrawer } = useAdminContext();
   const [subMenuOpen, setSubMenuOpen] = React.useState<Record<string, boolean>>(
@@ -38,6 +34,10 @@ export function CustomDrawer() {
     if (route) {
       router.push(route);
     }
+  };
+
+  const getActiveStyle = (route?: string) => {
+    return pathname === route ? { backgroundColor: "#d0e8fc" } : {};
   };
 
   return (
@@ -65,10 +65,17 @@ export function CustomDrawer() {
           <MenuIcon />
         </IconButton>
       </Box>
+
       {/* Menu Items */}
       <List>
         {MENU_ITEMS.map((item, index) => (
-          <Box key={index} sx={{ px: 1 }}>
+          <Box
+            key={index}
+            sx={{
+              px: 1,
+              display: "flex",
+            }}
+          >
             <ListItem
               component="button"
               onClick={
@@ -83,10 +90,15 @@ export function CustomDrawer() {
                 boxShadow: "none",
                 border: "none",
                 "&:hover": {
-                  backgroundColor: "#2196f3",
+                  backgroundColor: "#1C4E80",
                   color: "white",
                 },
+                ...getActiveStyle(item.route),
                 overflow: "hidden",
+                display: "flex",
+                alignItems: "center",
+                px: drawerOpen ? "20px" : "8px",
+                justifyContent: drawerOpen ? "center" : "center",
               }}
             >
               <ListItemIcon
@@ -97,14 +109,15 @@ export function CustomDrawer() {
                   justifyContent: "center",
                   alignItems: "center",
                   mr: drawerOpen ? 1 : 0,
+                  width: drawerOpen ? "auto" : "100px",
                 }}
               >
                 <item.icon size={20} />
               </ListItemIcon>
+
               {drawerOpen && <ListItemText primary={item.label} />}
-              {item.subOptions &&
-                (subMenuOpen[item.label] ? <ExpandLess /> : <ExpandMore />)}
             </ListItem>
+
             {item.subOptions && (
               <Collapse
                 in={subMenuOpen[item.label]}
@@ -127,6 +140,7 @@ export function CustomDrawer() {
                           backgroundColor: "#2196f3",
                           color: "white",
                         },
+                        ...getActiveStyle(subItem.route), // Aquí también aplicamos el estilo activo para submenús
                         overflow: "hidden",
                       }}
                       onClick={() => handleNavigation(subItem.route)}
