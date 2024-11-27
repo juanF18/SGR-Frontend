@@ -1,14 +1,13 @@
 "use client";
 import { useAdminContext } from "@/context";
-import UsersContainer from "@/features/users/UsersContainer";
+import ProjectsContainer from "@/features/projects/ProyectsContainer";
 import React, { useEffect } from "react";
 
-export default function UsersPage() {
+export default function ProjectsPage() {
   const { setPageTitle } = useAdminContext();
 
   useEffect(() => {
-    setPageTitle("Usuarios");
+    setPageTitle("Proyectos");
   }, [setPageTitle]);
-
-  return <UsersContainer />;
+  return <ProjectsContainer />;
 }

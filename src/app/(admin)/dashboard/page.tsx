@@ -1,14 +1,13 @@
 "use client";
 import { useAdminContext } from "@/context";
-import UsersContainer from "@/features/users/UsersContainer";
+import DashBoardContainer from "@/features/dashboard/DashBoardContainer";
 import React, { useEffect } from "react";
 
-export default function UsersPage() {
+export default function DashBoardPage() {
   const { setPageTitle } = useAdminContext();
 
   useEffect(() => {
     setPageTitle("Usuarios");
   }, [setPageTitle]);
-
-  return <UsersContainer />;
+  return <DashBoardContainer />;
 }
