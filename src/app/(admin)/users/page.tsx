@@ -1,9 +1,9 @@
 "use client";
-import { usePageContext } from "@/context";
+import { useAdminContext } from "@/context";
 import React, { useEffect } from "react";
 
 export default function UsersPage() {
-  const { setPageTitle } = usePageContext();
+  const { setPageTitle } = useAdminContext();
 
   useEffect(() => {
     setPageTitle("Usuarios");

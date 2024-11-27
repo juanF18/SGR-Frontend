@@ -2,7 +2,7 @@
 import React from "react";
 import { CustomDrawer } from "@/components/CustomDrawer";
 import { CustomTopBar } from "@/components/CustomTopBar";
-import { PageProvider } from "@/context/PageContext";
+import { AdminProvider } from "@/context/PageContext";
 import { Box, Toolbar } from "@mui/material";
 
 export default function AdminLayout({
@@ -11,7 +11,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <PageProvider>
+    <AdminProvider>
       <Box sx={{ display: "flex", minHeight: "100vh" }}>
         {/* Drawer */}
         <CustomDrawer />
@@ -31,6 +31,6 @@ export default function AdminLayout({
           {children}
         </Box>
       </Box>
-    </PageProvider>
+    </AdminProvider>
   );
 }
