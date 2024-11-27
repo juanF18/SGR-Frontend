@@ -1,16 +1,16 @@
 "use client";
 import React, { createContext, useContext, useState } from "react";
 
-interface PageContextProps {
+interface AdminContextProps {
   pageTitle: string;
   setPageTitle: (title: string) => void;
   drawerOpen: boolean;
   toggleDrawer: () => void;
 }
 
-const PageContext = createContext<PageContextProps | undefined>(undefined);
+const AdminContext = createContext<AdminContextProps | undefined>(undefined);
 
-export const PageProvider: React.FC<{ children: React.ReactNode }> = ({
+export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [pageTitle, setPageTitle] = useState("Dashboard");
@@ -19,18 +19,18 @@ export const PageProvider: React.FC<{ children: React.ReactNode }> = ({
   const toggleDrawer = () => setDrawerOpen((prev) => !prev);
 
   return (
-    <PageContext.Provider
+    <AdminContext.Provider
       value={{ pageTitle, setPageTitle, drawerOpen, toggleDrawer }}
     >
       {children}
-    </PageContext.Provider>
+    </AdminContext.Provider>
   );
 };
 
-export const usePageContext = () => {
-  const context = useContext(PageContext);
+export const useAdminContext = () => {
+  const context = useContext(AdminContext);
   if (!context) {
-    throw new Error("usePageContext must be used within a PageProvider");
+    throw new Error("useAdminContext must be used within a AdminProvider");
   }
   return context;
 };

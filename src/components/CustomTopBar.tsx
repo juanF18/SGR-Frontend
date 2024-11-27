@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import { usePageContext } from "@/context/PageContext";
+import { useAdminContext } from "@/context/PageContext";
 
 const DRAWER_WIDTH = 240;
 const CLOSED_DRAWER_WIDTH = 60;
 
 export function CustomTopBar() {
-  const { pageTitle, drawerOpen } = usePageContext(); // Usa el contexto
+  const { pageTitle, drawerOpen } = useAdminContext(); // Usa el contexto
 
   return (
     <AppBar
