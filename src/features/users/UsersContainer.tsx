@@ -6,6 +6,7 @@ import { User } from "./models";
 import { useUsersContext } from "./context/user.context";
 import { CreateUserModal } from "./components/CreateUserModal";
 import { UpdateUserModal } from "./components/UpdateUserModal";
+import { showToast } from "@/utils";
 
 export default function UsersContainer() {
   const {
@@ -25,6 +26,7 @@ export default function UsersContainer() {
       { id: "manager", name: "Manager" },
     ];
 
+    showToast("Se cargo melooo", "success");
     setRoles(fetchedRoles);
   }, [setRoles]);
   const fetchedUsers: User[] = [
