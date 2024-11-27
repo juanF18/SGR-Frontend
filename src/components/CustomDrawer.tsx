@@ -18,14 +18,14 @@ import {
 } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { MENU_ITEMS } from "@/constants";
-import { usePageContext } from "@/context/PageContext";
+import { useAdminContext } from "@/context/PageContext";
 
 const DRAWER_WIDTH = 240;
 const CLOSED_DRAWER_WIDTH = 60;
 
 export function CustomDrawer() {
   const router = useRouter();
-  const { drawerOpen, toggleDrawer } = usePageContext(); // Usa el contexto combinado
+  const { drawerOpen, toggleDrawer } = useAdminContext();
   const [subMenuOpen, setSubMenuOpen] = React.useState<Record<string, boolean>>(
     {}
   );
