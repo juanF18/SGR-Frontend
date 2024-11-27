@@ -1,25 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Button } from "@mui/material";
 import {
   MRT_GlobalFilterTextField,
   MRT_TableInstance,
 } from "material-react-table";
 import { User } from "@/features/users/models";
+import { useUsersContext } from "../context/user.context";
 
 interface Props {
   table: MRT_TableInstance<User>;
 }
 
 export function UserTableToolBar({ table }: Props) {
-  const [, setSearchText] = useState("");
-
-  // Manejo del cambio en el filtro global
+  const { setIsCreateModalOpen } = useUsersContext();
   const handleGlobalFilterChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const value = event.target.value;
-    setSearchText(value);
-    table.setGlobalFilter(value);
+    console.log(event.target.value);
   };
 
   return (
@@ -29,16 +26,18 @@ export function UserTableToolBar({ table }: Props) {
         justifyContent: "space-between",
         alignItems: "center",
         padding: "8px",
+        backgroundColor: (theme) => theme.palette.background.paper, // Fondo personalizado
       }}
     >
-      <Box sx={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+      <Box sx={{ display: "flex", gap: "0.5rem", width: "30%" }}>
         <MRT_GlobalFilterTextField
           table={table}
           onChange={handleGlobalFilterChange}
         />
+        {/* Este componente debería funcionar ahora */}
       </Box>
       <Box sx={{ display: "flex", gap: "0.5rem" }}>
-        <Button variant="outlined" onClick={() => {}}>
+        <Button variant="outlined" onClick={() => setIsCreateModalOpen(true)}>
           Agregar Usuario
         </Button>
       </Box>
