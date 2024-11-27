@@ -25,7 +25,7 @@ export const MENU_ITEMS: MenuItem[] = [
     route: "/reports",
   },
   {
-    label: "Administración de usuarios",
+    label: "Usuarios",
     icon: FaUsers,
     route: "/users",
   },
