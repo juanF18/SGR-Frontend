@@ -13,7 +13,7 @@ export default function UsersPage() {
 
   return (
     <UsersProvider>
-      <UsersContainer />;
+      <UsersContainer />
     </UsersProvider>
   );
 }
