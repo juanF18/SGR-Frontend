@@ -4,13 +4,14 @@ import axios, { AxiosResponse, AxiosError } from "axios";
 import { showToast } from "@/utils";
 
 const axiosInstance = axios.create({
-  baseURL: "https://api.example.com",
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 5000,
 });
 
 axiosInstance.interceptors.request.use(
   (config: any) => {
-    const token = "xxxxxxx";
+    const token =
+      "VaFjSatVPeaxbqUFLvp09Q06wE3VrFdbfvyq1VErGwPWXtpXi9dU4vZBFlsn964H";
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
