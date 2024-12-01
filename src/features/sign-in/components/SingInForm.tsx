@@ -1,19 +1,34 @@
+// components/SingInForm.tsx
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Box, TextField, Button, Typography, Link } from "@mui/material";
 import { SingInRequest } from "@/features/sign-in/models";
 import { useRouter } from "next/navigation";
+import { usePostLogin } from "../hooks";
+import { showToast } from "@/utils";
 
 export function SingInForm() {
   const router = useRouter();
+  const { postLogin, isPending, isError, error } = usePostLogin(); // Usamos el hook
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SingInRequest>();
 
-  const onSubmit = (data: SingInRequest) => {
-    console.log("Datos enviados:", data);
+  const onSubmit = async (data: SingInRequest) => {
+    try {
+      const response = await postLogin(data);
+
+      if (response?.status === 200) {
+        router.push("/dashboard");
+      } else {
+        showToast("Error al iniciar sesion", "error");
+      }
+    } catch (err) {
+      console.log(err);
+      showToast("Error al intentar iniciar sesión:", "error");
+    }
   };
 
   return (
@@ -65,16 +80,25 @@ export function SingInForm() {
         <Link href="#" underline="hover" sx={{ display: "block", my: 1 }}>
           ¿Olvidaste tu contraseña?
         </Link>
+
+        {/* Botón de envío */}
         <Button
-          onClick={() => router.push("/users")}
-          //type="submit"
+          type="submit"
           variant="contained"
           color="primary"
           fullWidth
           sx={{ mt: 2 }}
+          disabled={isPending} // Deshabilitar mientras se carga
         >
-          INICIAR SESIÓN
+          {isPending ? "Iniciando sesión..." : "INICIAR SESIÓN"}
         </Button>
+
+        {/* Mostrar error si ocurre */}
+        {isError && (
+          <Typography color="error" sx={{ mt: 2 }}>
+            {error?.message || "Hubo un error al iniciar sesión."}
+          </Typography>
+        )}
       </Box>
     </Box>
   );
