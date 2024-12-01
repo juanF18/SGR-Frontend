@@ -2,6 +2,7 @@
 import React, { ReactNode } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { showToast } from "@/utils";
+import store from "@/redux/store";
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -9,12 +10,16 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(
-  (config: any) => {
-    const token =
-      "VaFjSatVPeaxbqUFLvp09Q06wE3VrFdbfvyq1VErGwPWXtpXi9dU4vZBFlsn964H";
+  (config) => {
+    // Obtener el token de acceso del estado de Redux
+    const state = store.getState();
+    const token = state.session.accessToken;
+
+    // Si hay un token, agregarlo a los headers de la solicitud
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error: AxiosError) => {
