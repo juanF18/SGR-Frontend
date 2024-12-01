@@ -4,6 +4,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AxiosInterceptorProvider } from "./AxiosInterceptor";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
+import store from "@/redux/store";
 
 // Crear el QueryClient una vez
 const queryClient = new QueryClient();
@@ -15,9 +17,11 @@ interface ToastProviderProps {
 export const PageProvider: React.FC<ToastProviderProps> = ({ children }) => {
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <AxiosInterceptorProvider>{children}</AxiosInterceptorProvider>
-      </QueryClientProvider>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <AxiosInterceptorProvider>{children}</AxiosInterceptorProvider>
+        </QueryClientProvider>
+      </Provider>
 
       <ToastContainer
         position="top-right"
