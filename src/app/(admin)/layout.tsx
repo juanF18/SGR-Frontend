@@ -4,6 +4,7 @@ import { CustomDrawer } from "@/components/CustomDrawer";
 import { CustomTopBar } from "@/components/CustomTopBar";
 import { AdminProvider } from "@/context/PageContext";
 import { Box, Toolbar } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 
 export default function AdminLayout({
   children,
@@ -12,7 +13,7 @@ export default function AdminLayout({
 }) {
   return (
     <AdminProvider>
-      <Box sx={{ display: "flex", minHeight: "100vh" }}>
+      <Box sx={{ display: "flex" }}>
         {/* Drawer */}
         <CustomDrawer />
         {/* Top Bar */}
@@ -25,10 +26,16 @@ export default function AdminLayout({
             p: 1,
             backgroundColor: "background.default",
             color: "text.primary",
+            overflow: "auto",
+            width: "100%",
           }}
         >
           <Toolbar />
-          {children}
+          <Grid container sx={{ p: 2 }}>
+            <Box display="flex" flexDirection={"column"} sx={{ width: "100%" }}>
+              {children}
+            </Box>
+          </Grid>
         </Box>
       </Box>
     </AdminProvider>
