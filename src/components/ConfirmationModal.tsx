@@ -1,6 +1,6 @@
-import React from "react";
-import { Dialog, DialogTitle, DialogActions, Button } from "@mui/material";
-import { useConfirmationModal } from "@/context/ConfirmationModalContext";
+import React from 'react';
+import { Dialog, DialogTitle, DialogActions, Button } from '@mui/material';
+import { useConfirmationModal } from '@/context/ConfirmationModalContext';
 
 export const ConfirmationModal = () => {
   const { open, message, onConfirm, onCancel } = useConfirmationModal();

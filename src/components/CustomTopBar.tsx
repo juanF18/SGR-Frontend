@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import { AppBar, Toolbar, Typography } from "@mui/material";
-import { useAdminContext } from "@/context/PageContext";
+'use client';
+import React from 'react';
+import { AppBar, Toolbar, Typography } from '@mui/material';
+import { useAdminContext } from '@/context/PageContext';
 
 const DRAWER_WIDTH = 240;
 const CLOSED_DRAWER_WIDTH = 60;
@@ -13,14 +13,12 @@ export function CustomTopBar() {
     <AppBar
       position="fixed"
       sx={{
-        width: `calc(100% - ${
-          drawerOpen ? DRAWER_WIDTH : CLOSED_DRAWER_WIDTH
-        }px)`,
+        width: `calc(100% - ${drawerOpen ? DRAWER_WIDTH : CLOSED_DRAWER_WIDTH}px)`,
         marginLeft: `${drawerOpen ? DRAWER_WIDTH : CLOSED_DRAWER_WIDTH}px`,
         zIndex: (theme) => theme.zIndex.drawer + 1,
-        transition: "margin 0.3s, width 0.3s",
-        backgroundColor: "white",
-        color: "black",
+        transition: 'margin 0.3s, width 0.3s',
+        backgroundColor: 'white',
+        color: 'black',
       }}
     >
       <Toolbar>

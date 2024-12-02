@@ -1,3 +1,6 @@
+import { EntityResponse } from '@/features/entities/models';
+import { Role } from '@/models';
+
 export interface User {
   id?: string;
   name: string;
@@ -5,8 +8,8 @@ export interface User {
   email: string;
   identification: string;
   password: string;
-  role_id: string;
-  entity_id: string;
+  role: Role;
+  entity: EntityResponse;
 }
 
 export interface UserRequest {

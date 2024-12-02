@@ -1,2 +1,2 @@
-export * from "./LoadingScreen";
-export * from "./CustomTopBar";
+export * from './LoadingScreen';
+export * from './CustomTopBar';

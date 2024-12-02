@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface ConfirmationModalContextType {
   open: boolean;
@@ -9,27 +9,19 @@ interface ConfirmationModalContextType {
   closeModal: () => void;
 }
 
-const ConfirmationModalContext = createContext<
-  ConfirmationModalContextType | undefined
->(undefined);
+const ConfirmationModalContext = createContext<ConfirmationModalContextType | undefined>(undefined);
 
 export const useConfirmationModal = () => {
   const context = useContext(ConfirmationModalContext);
   if (!context) {
-    throw new Error(
-      "useConfirmationModal must be used within a ConfirmationModalProvider"
-    );
+    throw new Error('useConfirmationModal must be used within a ConfirmationModalProvider');
   }
   return context;
 };
 
-export const ConfirmationModalProvider = ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
+export const ConfirmationModalProvider = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [onConfirm, setOnConfirm] = useState<() => void>(() => () => {});
 
   const openModal = (message: string, onConfirm: () => void) => {
