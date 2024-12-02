@@ -1,1 +1,1 @@
-export type * from "./entity.model";
+export type * from './entity.model';

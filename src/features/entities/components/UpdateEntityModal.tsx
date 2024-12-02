@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -6,13 +6,13 @@ import {
   DialogActions,
   Button,
   CircularProgress,
-} from "@mui/material";
-import { EntityForm } from "./EntityForm";
-import { useEntityContext } from "../context/Entity.context";
-import { EntityRequest } from "../models";
-import { usePutEntity } from "../hooks/usePutEntity";
-import { showToast } from "@/utils";
-import { useGetEntities } from "../hooks";
+} from '@mui/material';
+import { EntityForm } from './EntityForm';
+import { useEntityContext } from '../context/Entity.context';
+import { EntityRequest } from '../models';
+import { usePutEntity } from '../hooks/usePutEntity';
+import { showToast } from '@/utils';
+import { useGetEntities } from '../hooks';
 
 interface Props {
   open: boolean;
@@ -29,14 +29,14 @@ export function UpdateEntityModal({ open, onClose }: Props) {
       try {
         const response = await putEntity({ ...data, id: selectedEntity.id });
         if (response.status === 200) {
-          showToast("Entidad actualizada con éxito", "success");
+          showToast('Entidad actualizada con éxito', 'success');
           setSelectedEntity(null);
         } else {
-          showToast("Ocurrió algún error al actualizar la entidad", "error");
+          showToast('Ocurrió algún error al actualizar la entidad', 'error');
         }
         onClose();
       } catch (error) {
-        showToast(`Error al actualizar la entidad: ${error}`, "error");
+        showToast(`Error al actualizar la entidad: ${error}`, 'error');
       }
     }
   };
@@ -47,7 +47,7 @@ export function UpdateEntityModal({ open, onClose }: Props) {
       <DialogContent>
         <EntityForm onSubmit={handleUpdateEntity} />
         {isPending && (
-          <div style={{ textAlign: "center", marginTop: "20px" }}>
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
             <CircularProgress />
             <p>Actualizando entidad...</p>
           </div>
@@ -55,12 +55,7 @@ export function UpdateEntityModal({ open, onClose }: Props) {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancelar</Button>
-        <Button
-          form="entity-form"
-          type="submit"
-          variant="contained"
-          disabled={isPending}
-        >
+        <Button form="entity-form" type="submit" variant="contained" disabled={isPending}>
           Actualizar
         </Button>
       </DialogActions>

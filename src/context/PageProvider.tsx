@@ -1,13 +1,13 @@
-"use client";
-import React, { ReactNode } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { AxiosInterceptorProvider } from "./AxiosInterceptor";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Provider } from "react-redux";
-import store from "@/redux/store";
-import { ConfirmationModalProvider } from "./ConfirmationModalContext";
-import { ConfirmationModal } from "@/components/ConfirmationModal";
+'use client';
+import React, { ReactNode } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AxiosInterceptorProvider } from './AxiosInterceptor';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Provider } from 'react-redux';
+import store from '@/redux/store';
+import { ConfirmationModalProvider } from './ConfirmationModalContext';
+import { ConfirmationModal } from '@/components/ConfirmationModal';
 
 // Crear el QueryClient una vez
 const queryClient = new QueryClient();

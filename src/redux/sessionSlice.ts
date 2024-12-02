@@ -1,6 +1,6 @@
 // redux/sessionSlice.ts
-import { SessionState } from "@/models";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { SessionState } from '@/models';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Definir los tipos para los datos de la sesión
 const initialState: SessionState = {
@@ -14,7 +14,7 @@ const initialState: SessionState = {
 
 // Crear un slice con las acciones correspondientes
 const sessionSlice = createSlice({
-  name: "session",
+  name: 'session',
   initialState,
   reducers: {
     // Acción para iniciar sesión

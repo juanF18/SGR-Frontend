@@ -1,7 +1,6 @@
-import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "@/context/AxiosInterceptor";
-import { AxiosError } from "axios";
-import { EntityRequest } from "../models";
+import { useMutation } from '@tanstack/react-query';
+import axiosInstance from '@/context/AxiosInterceptor';
+import { EntityRequest } from '../models';
 
 export function usePostEntity(getEntities: () => void) {
   const {
@@ -11,17 +10,11 @@ export function usePostEntity(getEntities: () => void) {
     error,
   } = useMutation({
     mutationFn: async (entityData: EntityRequest) => {
-      const response = await axiosInstance.post("/entities/", entityData); // Endpoint para crear entidad
+      const response = await axiosInstance.post('/entities/', entityData); // Endpoint para crear entidad
       return response;
     },
     onSuccess: () => {
       getEntities();
-    },
-    onError: (error: AxiosError) => {
-      console.error(
-        "Error al crear la entidad:",
-        error.response?.data || error.message
-      );
     },
   });
 

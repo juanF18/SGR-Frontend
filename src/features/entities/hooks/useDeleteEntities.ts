@@ -1,6 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "@/context/AxiosInterceptor";
-import { AxiosError } from "axios";
+import { useMutation } from '@tanstack/react-query';
+import axiosInstance from '@/context/AxiosInterceptor';
 
 export function useDeleteEntity(getEntities: () => void) {
   const {
@@ -15,12 +14,6 @@ export function useDeleteEntity(getEntities: () => void) {
     },
     onSuccess: () => {
       getEntities();
-    },
-    onError: (error: AxiosError) => {
-      console.error(
-        "Error al eliminar la entidad:",
-        error.response?.data || error.message
-      );
     },
   });
 

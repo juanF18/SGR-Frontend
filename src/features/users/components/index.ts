@@ -1,2 +1,2 @@
-export { UserTable } from "./UserTable";
-export { UserTableToolBar } from "./UserTableToolBar";
+export { UserTable } from './UserTable';
+export { UserTableToolBar } from './UserTableToolBar';

@@ -1,5 +1,5 @@
-import { ReactNode, createContext, useContext, useState } from "react";
-import { EntityResponse } from "../models";
+import { ReactNode, createContext, useContext, useState } from 'react';
+import { EntityResponse } from '../models';
 
 export interface EntityContextType {
   selectedEntity: EntityResponse | null;
@@ -10,14 +10,10 @@ export interface EntityContextType {
   setIsEditModalOpen: (state: boolean) => void;
 }
 
-export const EntityContext = createContext<EntityContextType | undefined>(
-  undefined
-);
+export const EntityContext = createContext<EntityContextType | undefined>(undefined);
 
 export const EntityProvider = ({ children }: { children: ReactNode }) => {
-  const [selectedEntity, setSelectedEntity] = useState<EntityResponse | null>(
-    null
-  ); // Cambiar a EntityResponse
+  const [selectedEntity, setSelectedEntity] = useState<EntityResponse | null>(null); // Cambiar a EntityResponse
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
@@ -40,7 +36,7 @@ export const EntityProvider = ({ children }: { children: ReactNode }) => {
 export const useEntityContext = () => {
   const context = useContext(EntityContext);
   if (!context) {
-    throw new Error("useEntityContext must be used within a EntityProvider");
+    throw new Error('useEntityContext must be used within a EntityProvider');
   }
   return context;
 };

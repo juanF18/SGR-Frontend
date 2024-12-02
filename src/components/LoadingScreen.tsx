@@ -1,19 +1,19 @@
 // components/LoadingScreen.jsx
-import React from "react";
-import { CircularProgress, Box, Typography } from "@mui/material";
+import React from 'react';
+import { CircularProgress, Box, Typography } from '@mui/material';
 
-export function LoadingScreen({ message = "Cargando, por favor espera..." }) {
+export function LoadingScreen({ message = 'Cargando, por favor espera...' }) {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        bgcolor: "background.default",
-        color: "text.primary",
-        textAlign: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        textAlign: 'center',
       }}
     >
       <CircularProgress size={80} />

@@ -1,19 +1,15 @@
-import React, { useMemo } from "react";
-import { Box, IconButton } from "@mui/material";
-import {
-  MaterialReactTable,
-  MRT_ColumnDef,
-  useMaterialReactTable,
-} from "material-react-table";
-import { MRT_Localization_ES } from "material-react-table/locales/es";
-import { Edit, Delete } from "@mui/icons-material";
-import { EntityResponse } from "../models";
-import { useEntityContext } from "../context/Entity.context";
-import { EntityTableToolBar } from "./EntityTableToolBar";
-import { useConfirmationModal } from "@/context/ConfirmationModalContext";
-import { useDeleteEntity } from "../hooks/useDeleteEntities";
-import { useGetEntities } from "../hooks";
-import { showToast } from "@/utils";
+import React, { useMemo } from 'react';
+import { Box, IconButton } from '@mui/material';
+import { MaterialReactTable, MRT_ColumnDef, useMaterialReactTable } from 'material-react-table';
+import { MRT_Localization_ES } from 'material-react-table/locales/es';
+import { Edit, Delete } from '@mui/icons-material';
+import { EntityResponse } from '../models';
+import { useEntityContext } from '../context/Entity.context';
+import { EntityTableToolBar } from './EntityTableToolBar';
+import { useConfirmationModal } from '@/context/ConfirmationModalContext';
+import { useDeleteEntity } from '../hooks/useDeleteEntities';
+import { useGetEntities } from '../hooks';
+import { showToast } from '@/utils';
 
 interface Props {
   entities: EntityResponse[];
@@ -38,12 +34,12 @@ export function EntityTable({ entities, isLoading }: Props) {
         try {
           const response = await deleteEntity(entity.id);
           if (response.status === 204) {
-            showToast("Entidad eliminada con éxito", "success");
+            showToast('Entidad eliminada con éxito', 'success');
           } else {
-            showToast("Error al eliminar la entidad", "error");
+            showToast('Error al eliminar la entidad', 'error');
           }
         } catch (error) {
-          showToast(`Error al eliminar la entidad: ${error}`, "error");
+          showToast(`Error al eliminar la entidad: ${error}`, 'error');
         }
       }
     );
@@ -52,41 +48,41 @@ export function EntityTable({ entities, isLoading }: Props) {
   const columns = useMemo<MRT_ColumnDef<EntityResponse>[]>(
     () => [
       {
-        accessorKey: "email",
-        header: "Email",
+        accessorKey: 'email',
+        header: 'Email',
         size: 50,
       },
       {
-        accessorKey: "name",
-        header: "Nombre",
+        accessorKey: 'name',
+        header: 'Nombre',
         size: 50,
       },
       {
-        accessorKey: "nit",
-        header: "NIT",
+        accessorKey: 'nit',
+        header: 'NIT',
         size: 50,
       },
       {
-        accessorKey: "phone",
-        header: "Teléfono",
+        accessorKey: 'phone',
+        header: 'Teléfono',
         size: 50,
       },
       {
-        accessorKey: "address",
-        header: "Dirección",
+        accessorKey: 'address',
+        header: 'Dirección',
         size: 50,
       },
       {
-        accessorKey: "city",
-        header: "Ciudad",
+        accessorKey: 'city',
+        header: 'Ciudad',
         size: 50,
       },
       {
-        accessorKey: "actions",
-        header: "",
+        accessorKey: 'actions',
+        header: '',
         size: 50,
         Cell: ({ row }) => (
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             {/* Botón para editar */}
             <IconButton
               color="primary"
@@ -97,10 +93,7 @@ export function EntityTable({ entities, isLoading }: Props) {
               <Edit />
             </IconButton>
             {/* Botón para eliminar */}
-            <IconButton
-              color="error"
-              onClick={() => handleDelete(row.original)}
-            >
+            <IconButton color="error" onClick={() => handleDelete(row.original)}>
               <Delete />
             </IconButton>
           </Box>

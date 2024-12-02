@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { TextField } from "@mui/material";
-import Grid from "@mui/material/Grid2";
-import { EntityRequest } from "../models";
-import { useEntityContext } from "../context/Entity.context";
+import React, { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { TextField } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { EntityRequest } from '../models';
+import { useEntityContext } from '../context/Entity.context';
 
 interface Props {
   onSubmit: (data: EntityRequest) => void;
@@ -13,13 +13,13 @@ export function EntityForm({ onSubmit }: Props) {
   const { selectedEntity } = useEntityContext();
   const { control, handleSubmit, reset } = useForm<EntityRequest>({
     defaultValues: {
-      name: "",
-      nit: "",
-      email: "",
-      phone: "",
-      address: "",
-      city: "",
-      ...(selectedEntity ? { id: selectedEntity.id ?? "" } : {}),
+      name: '',
+      nit: '',
+      email: '',
+      phone: '',
+      address: '',
+      city: '',
+      ...(selectedEntity ? { id: selectedEntity.id ?? '' } : {}),
     },
   });
 
@@ -28,12 +28,12 @@ export function EntityForm({ onSubmit }: Props) {
       reset(selectedEntity);
     } else {
       reset({
-        name: "",
-        nit: "",
-        email: "",
-        phone: "",
-        address: "",
-        city: "",
+        name: '',
+        nit: '',
+        email: '',
+        phone: '',
+        address: '',
+        city: '',
       });
     }
   }, [selectedEntity, reset]);
@@ -57,7 +57,7 @@ export function EntityForm({ onSubmit }: Props) {
           <Controller
             name="name"
             control={control}
-            rules={{ required: "El nombre es requerido" }}
+            rules={{ required: 'El nombre es requerido' }}
             render={({ field, fieldState }) => (
               <TextField
                 {...field}
@@ -77,7 +77,7 @@ export function EntityForm({ onSubmit }: Props) {
           <Controller
             name="nit"
             control={control}
-            rules={{ required: "El NIT es requerido" }}
+            rules={{ required: 'El NIT es requerido' }}
             render={({ field, fieldState }) => (
               <TextField
                 {...field}
@@ -98,10 +98,10 @@ export function EntityForm({ onSubmit }: Props) {
             name="email"
             control={control}
             rules={{
-              required: "El email es requerido",
+              required: 'El email es requerido',
               pattern: {
                 value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                message: "El email no es válido",
+                message: 'El email no es válido',
               },
             }}
             render={({ field, fieldState }) => (
@@ -123,7 +123,7 @@ export function EntityForm({ onSubmit }: Props) {
           <Controller
             name="phone"
             control={control}
-            rules={{ required: "El teléfono es requerido" }}
+            rules={{ required: 'El teléfono es requerido' }}
             render={({ field, fieldState }) => (
               <TextField
                 {...field}
@@ -143,7 +143,7 @@ export function EntityForm({ onSubmit }: Props) {
           <Controller
             name="address"
             control={control}
-            rules={{ required: "La dirección es requerida" }}
+            rules={{ required: 'La dirección es requerida' }}
             render={({ field, fieldState }) => (
               <TextField
                 {...field}
@@ -163,7 +163,7 @@ export function EntityForm({ onSubmit }: Props) {
           <Controller
             name="city"
             control={control}
-            rules={{ required: "La ciudad es requerida" }}
+            rules={{ required: 'La ciudad es requerida' }}
             render={({ field, fieldState }) => (
               <TextField
                 {...field}

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -7,11 +7,11 @@ import {
   Button,
   CircularProgress,
   Box,
-} from "@mui/material";
-import { EntityForm } from "./EntityForm";
-import { EntityRequest } from "../models";
-import { useGetEntities, usePostEntity } from "../hooks";
-import { showToast } from "@/utils";
+} from '@mui/material';
+import { EntityForm } from './EntityForm';
+import { EntityRequest } from '../models';
+import { useGetEntities, usePostEntity } from '../hooks';
+import { showToast } from '@/utils';
 
 interface Props {
   open: boolean;
@@ -26,13 +26,13 @@ export function CreateEntityModal({ open, onClose }: Props) {
     try {
       const response = await postEntity(data);
       if (response.status === 201) {
-        showToast("Se a creado la entidad con éxito ", "success");
+        showToast('Se a creado la entidad con éxito ', 'success');
       } else {
-        showToast("Ocurrió algún error al crear la entidad", "error");
+        showToast('Ocurrió algún error al crear la entidad', 'error');
       }
       onClose();
     } catch (error) {
-      showToast(`Error al crear la entidad ${error}`, "error");
+      showToast(`Error al crear la entidad ${error}`, 'error');
     }
   };
 
@@ -43,19 +43,14 @@ export function CreateEntityModal({ open, onClose }: Props) {
         {/* Formulario para crear o actualizar la entidad */}
         <EntityForm onSubmit={handleCreateEntity} />
         {isPending && (
-          <Box sx={{ textAlign: "center", marginTop: "20px" }}>
+          <Box sx={{ textAlign: 'center', marginTop: '20px' }}>
             <CircularProgress />
           </Box>
         )}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancelar</Button>
-        <Button
-          form="entity-form"
-          type="submit"
-          variant="contained"
-          disabled={isPending}
-        >
+        <Button form="entity-form" type="submit" variant="contained" disabled={isPending}>
           Crear
           {/* Cambiar texto del botón según la acción */}
         </Button>

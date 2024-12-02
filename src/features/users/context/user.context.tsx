@@ -1,6 +1,6 @@
-import { ReactNode, createContext, useContext, useState } from "react";
-import { User } from "@/features/users/models";
-import { Role } from "@/models";
+import { ReactNode, createContext, useContext, useState } from 'react';
+import { User } from '@/features/users/models';
+import { Role } from '@/models';
 
 export interface UserContextType {
   selectedUser: User | null;
@@ -13,9 +13,7 @@ export interface UserContextType {
   setRoles: (roles: Role[] | null) => void;
 }
 
-export const UsersContext = createContext<UserContextType | undefined>(
-  undefined
-);
+export const UsersContext = createContext<UserContextType | undefined>(undefined);
 
 export const UsersProvider = ({ children }: { children: ReactNode }) => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -44,7 +42,7 @@ export const UsersProvider = ({ children }: { children: ReactNode }) => {
 export const useUsersContext = () => {
   const context = useContext(UsersContext);
   if (!context) {
-    throw new Error("useUsersContext must be used within a UsersProvider");
+    throw new Error('useUsersContext must be used within a UsersProvider');
   }
   return context;
 };
