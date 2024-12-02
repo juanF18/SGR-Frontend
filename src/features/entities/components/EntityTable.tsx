@@ -1,9 +1,8 @@
-import React, { useMemo, useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import { Box, IconButton } from "@mui/material";
 import {
   MaterialReactTable,
   MRT_ColumnDef,
-  MRT_TableInstance,
   useMaterialReactTable,
 } from "material-react-table";
 import { MRT_Localization_ES } from "material-react-table/locales/es";
@@ -18,9 +17,6 @@ interface Props {
 
 export function EntityTable({ entities }: Props) {
   const { setSelectedEntity, setIsEditModalOpen } = useEntityContext();
-  const [tableInstance, setTableInstance] = useState<
-    MRT_TableInstance<EntityResponse> | undefined
-  >(undefined);
 
   const handleOpenEdit = (entity: EntityResponse) => {
     setSelectedEntity(entity);
@@ -32,32 +28,32 @@ export function EntityTable({ entities }: Props) {
       {
         accessorKey: "email",
         header: "Email",
-        size: 250,
+        size: 50,
       },
       {
         accessorKey: "name",
         header: "Nombre",
-        size: 150,
+        size: 50,
       },
       {
         accessorKey: "nit",
         header: "NIT",
-        size: 150,
+        size: 50,
       },
       {
         accessorKey: "phone",
         header: "Teléfono",
-        size: 150,
+        size: 50,
       },
       {
         accessorKey: "address",
         header: "Dirección",
-        size: 250,
+        size: 50,
       },
       {
         accessorKey: "city",
         header: "Ciudad",
-        size: 150,
+        size: 50,
       },
       {
         accessorKey: "actions",
@@ -99,16 +95,9 @@ export function EntityTable({ entities }: Props) {
     renderTopToolbar: ({ table }) => <EntityTableToolBar table={table} />,
   });
 
-  useEffect(() => {
-    if (table) {
-      setTableInstance(table);
-    }
-  }, [table]);
-
   return (
-    <Box sx={{ width: "100%" }}>
-      {/* Renderizamos la tabla solo si la instancia de la tabla está disponible */}
-      {tableInstance ? <MaterialReactTable table={tableInstance} /> : null}
-    </Box>
+    <>
+      <MaterialReactTable table={table} />
+    </>
   );
 }
