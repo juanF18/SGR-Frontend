@@ -15,7 +15,7 @@ export default function EntitiesContainer() {
     setIsEditModalOpen,
     isEditModalOpen,
   } = useEntityContext();
-  const { entities, getEntities } = useGetEntities();
+  const { entities, getEntities, isLoading } = useGetEntities();
 
   useEffect(() => {
     getEntities();
@@ -27,7 +27,7 @@ export default function EntitiesContainer() {
       <Paper sx={{ p: 2, height: "100%" }}>
         <Grid container spacing={0.5}>
           <Grid size={{ xs: 12, sm: 12, md: 12 }}>
-            <EntityTable entities={entities} />{" "}
+            <EntityTable entities={entities} isLoading={isLoading} />{" "}
           </Grid>
         </Grid>
       </Paper>

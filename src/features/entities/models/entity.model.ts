@@ -1,4 +1,5 @@
 export interface EntityRequest {
+  id?: string;
   name: string;
   nit: string;
   email: string;
