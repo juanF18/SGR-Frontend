@@ -1,6 +1,6 @@
-import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "@/context/AxiosInterceptor";
-import { EntityRequest } from "../models";
+import { useMutation } from '@tanstack/react-query';
+import axiosInstance from '@/context/AxiosInterceptor';
+import { EntityRequest } from '../models';
 
 export function usePutEntity(getEntities: () => void) {
   const {
@@ -10,10 +10,7 @@ export function usePutEntity(getEntities: () => void) {
     error,
   } = useMutation({
     mutationFn: async (entityData: EntityRequest) => {
-      const response = await axiosInstance.put(
-        `/entities/${entityData.id}/`,
-        entityData
-      );
+      const response = await axiosInstance.put(`/entities/${entityData.id}/`, entityData);
       return response;
     },
     onSuccess: () => {

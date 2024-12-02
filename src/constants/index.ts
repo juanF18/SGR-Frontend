@@ -1,2 +1,2 @@
-export * from "./routes.constants";
-export * from "./url-apis.constants";
+export * from './routes.constants';
+export * from './url-apis.constants';

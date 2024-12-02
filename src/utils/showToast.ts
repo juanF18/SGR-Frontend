@@ -1,14 +1,11 @@
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 
 // Función para mostrar toasts
-export const showToast = (
-  message: string,
-  type: "success" | "error" | "warning"
-) => {
+export const showToast = (message: string, type: 'success' | 'error' | 'warning') => {
   switch (type) {
-    case "success":
+    case 'success':
       toast.success(message, {
-        position: "top-right",
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -16,9 +13,9 @@ export const showToast = (
         draggable: true,
       });
       break;
-    case "error":
+    case 'error':
       toast.error(message, {
-        position: "top-right",
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -26,9 +23,9 @@ export const showToast = (
         draggable: true,
       });
       break;
-    case "warning":
+    case 'warning':
       toast.warning(message, {
-        position: "top-right",
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -38,7 +35,7 @@ export const showToast = (
       break;
     default:
       toast(message, {
-        position: "top-right",
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,

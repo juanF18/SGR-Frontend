@@ -1,2 +1,2 @@
-export * from "./useGetEntities";
-export * from "./usePostEntity";
+export * from './useGetEntities';
+export * from './usePostEntity';

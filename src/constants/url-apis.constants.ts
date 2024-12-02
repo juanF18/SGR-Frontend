@@ -1,1 +1,1 @@
-export const URL_API_ENTITIES = "/entities/";
+export const URL_API_ENTITIES = '/entities/';

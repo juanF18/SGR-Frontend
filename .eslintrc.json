@@ -1,3 +1,10 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript", "plugin:prettier/recommended"],
+  "rules": {
+    "no-console": "warn", // Advertir sobre los console.log
+    "react/react-in-jsx-scope": "off", // En Next.js no necesitas importar React
+    "no-unused-vars": "off", // Advertir sobre variables no utilizadas
+    "semi": ["error", "always"], // Requiere punto y coma
+    "quotes": ["error", "single"] // Usa comillas simples
+  }
 }
