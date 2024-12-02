@@ -1,8 +1,22 @@
+"use client";
 import Grid from "@mui/material/Grid2";
-import React from "react";
+import React, { useEffect } from "react";
 import { ImageContainer, SingInForm } from "./components";
+import store from "@/redux/store";
+import { useRouter } from "next/navigation";
+import { ROUTE_DASHBOARD } from "@/constants";
 
 export default function SingInContainer() {
+  const router = useRouter();
+  useEffect(() => {
+    const login = store.getState();
+
+    if (login.session) {
+      router.push(ROUTE_DASHBOARD);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Grid
       container

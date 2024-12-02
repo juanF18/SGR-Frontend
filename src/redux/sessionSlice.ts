@@ -1,17 +1,8 @@
 // redux/sessionSlice.ts
+import { SessionState } from "@/models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Definir los tipos para los datos de la sesión
-interface SessionState {
-  email: string | null;
-  firstName: string | null;
-  lastName: string | null;
-  role: string | null;
-  accessToken: string | null;
-  refreshToken: string | null;
-}
-
-// Estado inicial con valores `null` o `string`
 const initialState: SessionState = {
   email: null,
   firstName: null,
