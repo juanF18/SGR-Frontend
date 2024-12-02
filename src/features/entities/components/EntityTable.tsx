@@ -10,17 +10,43 @@ import { Edit, Delete } from "@mui/icons-material";
 import { EntityResponse } from "../models";
 import { useEntityContext } from "../context/Entity.context";
 import { EntityTableToolBar } from "./EntityTableToolBar";
+import { useConfirmationModal } from "@/context/ConfirmationModalContext";
+import { useDeleteEntity } from "../hooks/useDeleteEntities";
+import { useGetEntities } from "../hooks";
+import { showToast } from "@/utils";
 
 interface Props {
   entities: EntityResponse[];
+  isLoading: boolean;
 }
 
-export function EntityTable({ entities }: Props) {
+export function EntityTable({ entities, isLoading }: Props) {
   const { setSelectedEntity, setIsEditModalOpen } = useEntityContext();
+  const { openModal } = useConfirmationModal();
+  const { getEntities } = useGetEntities();
+  const { deleteEntity } = useDeleteEntity(getEntities);
 
   const handleOpenEdit = (entity: EntityResponse) => {
     setSelectedEntity(entity);
     setIsEditModalOpen(true);
+  };
+
+  const handleDelete = (entity: EntityResponse) => {
+    openModal(
+      `¿Estás seguro de eliminar la entidad ${entity.name}?`, // Mensaje dinámico
+      async () => {
+        try {
+          const response = await deleteEntity(entity.id);
+          if (response.status === 204) {
+            showToast("Entidad eliminada con éxito", "success");
+          } else {
+            showToast("Error al eliminar la entidad", "error");
+          }
+        } catch (error) {
+          showToast(`Error al eliminar la entidad: ${error}`, "error");
+        }
+      }
+    );
   };
 
   const columns = useMemo<MRT_ColumnDef<EntityResponse>[]>(
@@ -71,7 +97,10 @@ export function EntityTable({ entities }: Props) {
               <Edit />
             </IconButton>
             {/* Botón para eliminar */}
-            <IconButton color="error" onClick={() => {}}>
+            <IconButton
+              color="error"
+              onClick={() => handleDelete(row.original)}
+            >
               <Delete />
             </IconButton>
           </Box>
@@ -87,6 +116,9 @@ export function EntityTable({ entities }: Props) {
     data: entities,
     initialState: {
       showGlobalFilter: true,
+    },
+    state: {
+      isLoading: isLoading,
     },
     enableGlobalFilter: true,
     rowCount: entities.length,

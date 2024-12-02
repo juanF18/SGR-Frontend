@@ -5,10 +5,14 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  CircularProgress,
 } from "@mui/material";
-import { EntityForm } from "./EntityForm"; // Formulario para editar la entidad
+import { EntityForm } from "./EntityForm";
 import { useEntityContext } from "../context/Entity.context";
 import { EntityRequest } from "../models";
+import { usePutEntity } from "../hooks/usePutEntity";
+import { showToast } from "@/utils";
+import { useGetEntities } from "../hooks";
 
 interface Props {
   open: boolean;
@@ -17,18 +21,22 @@ interface Props {
 
 export function UpdateEntityModal({ open, onClose }: Props) {
   const { selectedEntity, setSelectedEntity } = useEntityContext();
+  const { getEntities } = useGetEntities();
+  const { putEntity, isPending } = usePutEntity(getEntities);
 
   const handleUpdateEntity = async (data: EntityRequest) => {
     if (selectedEntity?.id) {
       try {
-        console.log("Actualizando entidad:", selectedEntity.id);
-
-        console.log("Entidad actualizada:", data);
-
+        const response = await putEntity({ ...data, id: selectedEntity.id });
+        if (response.status === 200) {
+          showToast("Entidad actualizada con éxito", "success");
+          setSelectedEntity(null);
+        } else {
+          showToast("Ocurrió algún error al actualizar la entidad", "error");
+        }
         onClose();
-        setSelectedEntity(null);
       } catch (error) {
-        console.error("Error al actualizar la entidad:", error);
+        showToast(`Error al actualizar la entidad: ${error}`, "error");
       }
     }
   };
@@ -38,10 +46,21 @@ export function UpdateEntityModal({ open, onClose }: Props) {
       <DialogTitle>Editar Entidad</DialogTitle>
       <DialogContent>
         <EntityForm onSubmit={handleUpdateEntity} />
+        {isPending && (
+          <div style={{ textAlign: "center", marginTop: "20px" }}>
+            <CircularProgress />
+            <p>Actualizando entidad...</p>
+          </div>
+        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancelar</Button>
-        <Button form="entity-form" type="submit" variant="contained">
+        <Button
+          form="entity-form"
+          type="submit"
+          variant="contained"
+          disabled={isPending}
+        >
           Actualizar
         </Button>
       </DialogActions>

@@ -1,14 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   Button,
+  CircularProgress,
+  Box,
 } from "@mui/material";
-import { EntityForm } from "./EntityForm"; // Asegúrate de que este es el formulario adecuado
-import { useEntityContext } from "../context/Entity.context";
+import { EntityForm } from "./EntityForm";
 import { EntityRequest } from "../models";
+import { useGetEntities, usePostEntity } from "../hooks";
+import { showToast } from "@/utils";
 
 interface Props {
   open: boolean;
@@ -16,35 +19,44 @@ interface Props {
 }
 
 export function CreateEntityModal({ open, onClose }: Props) {
-  const { selectedEntity } = useEntityContext();
-  const handleCreateOrUpdateEntity = async (data: EntityRequest) => {
+  const { getEntities } = useGetEntities();
+  const { postEntity, isPending } = usePostEntity(getEntities);
+
+  const handleCreateEntity = async (data: EntityRequest) => {
     try {
-      if (selectedEntity) {
-        console.log("Actualizando entidad con ID:", selectedEntity.id);
+      const response = await postEntity(data);
+      if (response.status === 201) {
+        showToast("Se a creado la entidad con éxito ", "success");
       } else {
-        console.log("Creando nueva entidad", data);
+        showToast("Ocurrió algún error al crear la entidad", "error");
       }
       onClose();
     } catch (error) {
-      console.error("Error al crear o actualizar la entidad:", error);
+      showToast(`Error al crear la entidad ${error}`, "error");
     }
   };
 
-  useEffect(() => {}, [selectedEntity]);
-
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
-      <DialogTitle>
-        {selectedEntity ? "Actualizar Entidad" : "Crear Entidad"}
-      </DialogTitle>
+      <DialogTitle>Crear Entidad</DialogTitle>
       <DialogContent>
         {/* Formulario para crear o actualizar la entidad */}
-        <EntityForm onSubmit={handleCreateOrUpdateEntity} />
+        <EntityForm onSubmit={handleCreateEntity} />
+        {isPending && (
+          <Box sx={{ textAlign: "center", marginTop: "20px" }}>
+            <CircularProgress />
+          </Box>
+        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancelar</Button>
-        <Button form="entity-form" type="submit" variant="contained">
-          {selectedEntity ? "Actualizar" : "Crear"}{" "}
+        <Button
+          form="entity-form"
+          type="submit"
+          variant="contained"
+          disabled={isPending}
+        >
+          Crear
           {/* Cambiar texto del botón según la acción */}
         </Button>
       </DialogActions>
