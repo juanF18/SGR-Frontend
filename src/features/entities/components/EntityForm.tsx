@@ -47,7 +47,6 @@ export function EntityForm({ onSubmit }: Props) {
     data.city = data.city.trim();
 
     onSubmit(data);
-    reset();
   };
 
   return (
