@@ -20,7 +20,7 @@ export default function SingInContainer() {
       } else {
         showToast('Error al iniciar sesion', 'error');
       }
-    } catch (err) {}
+    } catch {}
   };
 
   return (
