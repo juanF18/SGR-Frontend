@@ -3,32 +3,19 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Box, TextField, Button, Typography, Link } from '@mui/material';
 import { SingInRequest } from '@/features/sign-in/models';
-import { useRouter } from 'next/navigation';
-import { usePostLogin } from '../hooks';
-import { showToast } from '@/utils';
 
-export function SingInForm() {
-  const router = useRouter();
-  const { postLogin, isPending, isError, error } = usePostLogin(); // Usamos el hook
+interface SingInFormProps {
+  onSubmit: (data: SingInRequest) => Promise<void>;
+  isPending: boolean;
+  isError: boolean;
+}
+
+export function SingInForm({ onSubmit, isPending, isError }: SingInFormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SingInRequest>();
-
-  const onSubmit = async (data: SingInRequest) => {
-    try {
-      const response = await postLogin(data);
-
-      if (response?.status === 200) {
-        router.push('/dashboard');
-      } else {
-        showToast('Error al iniciar sesion', 'error');
-      }
-    } catch (err) {
-      showToast(`Error al intentar iniciar sesión:${err}`, 'error');
-    }
-  };
 
   return (
     <Box>
@@ -90,7 +77,7 @@ export function SingInForm() {
         {/* Mostrar error si ocurre */}
         {isError && (
           <Typography color="error" sx={{ mt: 2 }}>
-            {error?.message || 'Hubo un error al iniciar sesión.'}
+            Hubo un error al iniciar sesión
           </Typography>
         )}
       </Box>

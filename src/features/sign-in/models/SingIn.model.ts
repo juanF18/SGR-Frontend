@@ -10,4 +10,5 @@ export interface LoginResponse {
   role_name: string;
   access: string;
   refresh: string;
+  entity_name: string;
 }
