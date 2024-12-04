@@ -1,48 +1,34 @@
-// redux/sessionSlice.ts
-import { SessionState } from '@/models';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { EmptySessionState, SessionState } from '@/models'; // Asegúrate de que el tipo esté bien definido
 
-// Definir los tipos para los datos de la sesión
-const initialState: SessionState = {
-  email: null,
-  firstName: null,
-  lastName: null,
-  role: null,
-  accessToken: null,
-  refreshToken: null,
-};
-
-// Crear un slice con las acciones correspondientes
+// Estado inicial, que puede venir de localStorage
 const sessionSlice = createSlice({
   name: 'session',
-  initialState,
+  initialState: EmptySessionState,
   reducers: {
-    // Acción para iniciar sesión
     login: (state, action: PayloadAction<SessionState>) => {
-      state.email = action.payload.email;
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.role = action.payload.role;
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
+      const { email, firstName, lastName, role, accessToken, refreshToken, entityName } =
+        action.payload;
+      state.email = email;
+      state.firstName = firstName;
+      state.lastName = lastName;
+      state.role = role;
+      state.accessToken = accessToken;
+      state.refreshToken = refreshToken;
+      state.entityName = entityName;
     },
-    // Acción para cerrar sesión
-    logout: (state) => {
-      state.email = null;
-      state.firstName = null;
-      state.lastName = null;
-      state.role = null;
-      state.accessToken = null;
-      state.refreshToken = null;
-    },
-    // Acción para actualizar el token de acceso
+    logout: () => {},
     updateAccessToken: (state, action: PayloadAction<string>) => {
       state.accessToken = action.payload;
+
+      // Actualizamos el localStorage con el nuevo accessToken
+      const currentSession = { ...state, accessToken: action.payload };
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('session', JSON.stringify(currentSession));
+      }
     },
   },
 });
 
-// Exportar las acciones para usarlas en los componentes
 export const { login, logout, updateAccessToken } = sessionSlice.actions;
-
 export default sessionSlice.reducer;
