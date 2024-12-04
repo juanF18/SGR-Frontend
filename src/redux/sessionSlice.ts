@@ -17,7 +17,15 @@ const sessionSlice = createSlice({
       state.refreshToken = refreshToken;
       state.entityName = entityName;
     },
-    logout: () => {},
+    logout: (state) => {
+      state.email = '';
+      state.firstName = '';
+      state.lastName = '';
+      state.role = '';
+      state.accessToken = '';
+      state.refreshToken = '';
+      state.entityName = '';
+    },
     updateAccessToken: (state, action: PayloadAction<string>) => {
       state.accessToken = action.payload;
 

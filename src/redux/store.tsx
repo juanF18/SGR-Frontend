@@ -4,7 +4,6 @@ import sessionReducer from './sessionSlice';
 import {
   persistStore,
   persistReducer,
-  Persistor,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -14,7 +13,6 @@ import {
 } from 'redux-persist';
 import createWebStorage from 'redux-persist/es/storage/createWebStorage';
 
-// Implementación de un noop storage para cuando estemos en el servidor
 const noopStorage = {
   setItem: (_key: string, _value: string) => Promise.resolve(),
   getItem: (_key: string) => Promise.resolve(null),
