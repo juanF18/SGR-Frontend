@@ -1,30 +1,24 @@
 'use client';
 import { LoadingScreen } from '@/components';
 import { ROUTE_DASHBOARD, ROUTE_SIGN_IN } from '@/constants';
-import { SessionState } from '@/models';
-import store from '@/redux/store';
+import { RootState } from '@/redux/store';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function HomePage() {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState<SessionState | null>(null);
+  const session = useSelector((state: RootState) => state.session);
 
   useEffect(() => {
-    const login = store.getState();
-    setIsAuthenticated(login.session);
-  }, []);
-
-  useEffect(() => {
-    if (isAuthenticated !== null) {
-      if (isAuthenticated) {
-        router.push(ROUTE_DASHBOARD);
-      } else {
-        router.push(ROUTE_SIGN_IN);
-      }
+    if (session.accessToken != '') {
+      router.push(ROUTE_DASHBOARD);
+    } else {
+      router.push(ROUTE_SIGN_IN);
     }
-  }, [isAuthenticated, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
 
   return <LoadingScreen />;
 }
