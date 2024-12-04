@@ -1,21 +1,29 @@
 'use client';
 import Grid from '@mui/material/Grid2';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ImageContainer, SingInForm } from './components';
-import store from '@/redux/store';
 import { useRouter } from 'next/navigation';
-import { ROUTE_DASHBOARD } from '@/constants';
+import { usePostLogin } from './hooks';
+import { showToast } from '@/utils';
+import { SingInRequest } from './models';
 
 export default function SingInContainer() {
   const router = useRouter();
-  useEffect(() => {
-    const login = store.getState();
+  const { postLogin, isPending, isError } = usePostLogin();
 
-    if (login.session) {
-      router.push(ROUTE_DASHBOARD);
+  const onSubmit = async (data: SingInRequest) => {
+    try {
+      const response = await postLogin(data);
+
+      if (response?.status === 200) {
+        router.push('/dashboard');
+      } else {
+        showToast('Error al iniciar sesion', 'error');
+      }
+    } catch (err) {
+      showToast(`Error al intentar iniciar sesión:${err}`, 'error');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
 
   return (
     <Grid
@@ -43,7 +51,7 @@ export default function SingInContainer() {
           boxShadow: { md: 3 }, // Sombra en pantallas grandes
         }}
       >
-        <SingInForm />
+        <SingInForm isError={isError} isPending={isPending} onSubmit={onSubmit} />
       </Grid>
 
       {/* Columna de la imagen */}
