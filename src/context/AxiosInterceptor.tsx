@@ -6,6 +6,8 @@ import { showToast } from '@/utils';
 import store from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import { ROUTE_SIGN_IN } from '@/constants';
+import { useDispatch } from 'react-redux';
+import { logout } from '@/redux/sessionSlice';
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -14,6 +16,7 @@ const axiosInstance = axios.create({
 
 const useAxiosInterceptor = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const requestInterceptor = axiosInstance.interceptors.request.use(
@@ -43,6 +46,7 @@ const useAxiosInterceptor = () => {
         if (statusCode === 400) {
           showToast(message || 'Error en la solicitud', 'error');
         } else if (statusCode === 401) {
+          dispatch(logout());
           router.push(ROUTE_SIGN_IN);
           showToast('No autorizado. Por favor, inicie sesión nuevamente.', 'error');
         } else if (statusCode === 403) {
@@ -66,7 +70,7 @@ const useAxiosInterceptor = () => {
       axiosInstance.interceptors.request.eject(requestInterceptor);
       axiosInstance.interceptors.response.eject(responseInterceptor);
     };
-  }, [router]); // Dependencia de router
+  }, [dispatch, router]); // Dependencia de router
 
   return axiosInstance;
 };
