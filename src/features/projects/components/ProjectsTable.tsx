@@ -130,6 +130,7 @@ export function ProjectTable({ projects, isLoading }: Props) {
         ),
       },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
