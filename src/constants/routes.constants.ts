@@ -6,6 +6,7 @@ import {
   FaBuilding,
 } from 'react-icons/fa';
 import { MenuItem } from '@/models';
+import { AiOutlineBarChart } from 'react-icons/ai';
 
 export const ROUTE_SIGN_IN = '/sign-in';
 export const ROUTE_DASHBOARD = '/dashboard';
@@ -13,6 +14,7 @@ export const ROUTE_PROJECTS = '/projects';
 export const ROUTE_REPORTS = '/reports';
 export const ROUTE_USERS = '/users';
 export const ROUTE_ENTITIES = '/entities';
+export const ROUTE_ACTIVITIES = '/activities';
 
 export const MENU_ITEMS: MenuItem[] = [
   {
@@ -26,8 +28,13 @@ export const MENU_ITEMS: MenuItem[] = [
     route: ROUTE_PROJECTS,
   },
   {
-    label: 'Reportes',
+    label: 'Actividades',
     icon: FaClipboardList,
+    route: ROUTE_ACTIVITIES,
+  },
+  {
+    label: 'Reportes',
+    icon: AiOutlineBarChart,
     route: ROUTE_REPORTS,
   },
   {
