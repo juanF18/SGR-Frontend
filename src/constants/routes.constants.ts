@@ -4,6 +4,7 @@ import {
   FaProjectDiagram,
   FaCalendarAlt,
   FaBuilding,
+  FaTasks,
 } from 'react-icons/fa';
 import { MenuItem } from '@/models';
 import { AiOutlineBarChart } from 'react-icons/ai';
@@ -13,6 +14,7 @@ export const ROUTE_DASHBOARD = '/dashboard';
 export const ROUTE_PROJECTS = '/projects';
 export const ROUTE_REPORTS = '/reports';
 export const ROUTE_USERS = '/users';
+export const ROUTE_TASKS = '/tasks';
 export const ROUTE_ENTITIES = '/entities';
 export const ROUTE_ACTIVITIES = '/activities';
 
@@ -31,6 +33,11 @@ export const MENU_ITEMS: MenuItem[] = [
     label: 'Actividades',
     icon: FaClipboardList,
     route: ROUTE_ACTIVITIES,
+  },
+  {
+    label: 'Tareas',
+    icon: FaTasks,
+    route: ROUTE_TASKS,
   },
   {
     label: 'Reportes',

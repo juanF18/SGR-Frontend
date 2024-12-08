@@ -1,5 +1,4 @@
 import { ReactNode, createContext, useContext, useState } from 'react';
-import { Role } from '@/models'; // Si es necesario para proyectos, se mantiene
 import { ProjectResponse } from '../models/project.model';
 
 export interface ProjectContextType {
@@ -9,8 +8,6 @@ export interface ProjectContextType {
   setIsCreateModalOpen: (state: boolean) => void;
   isEditModalOpen: boolean;
   setIsEditModalOpen: (state: boolean) => void;
-  roles: Role[] | null; // Mantener si los proyectos están relacionados con roles
-  setRoles: (roles: Role[] | null) => void; // Mantener si los proyectos están relacionados con roles
 }
 
 export const ProjectsContext = createContext<ProjectContextType | undefined>(undefined);
@@ -19,7 +16,6 @@ export const ProjectsProvider = ({ children }: { children: ReactNode }) => {
   const [selectedProject, setSelectedProject] = useState<ProjectResponse | null>(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [roles, setRoles] = useState<Role[] | null>(null); // Puede no ser necesario si no es relevante para los proyectos
 
   return (
     <ProjectsContext.Provider
@@ -30,8 +26,6 @@ export const ProjectsProvider = ({ children }: { children: ReactNode }) => {
         setIsCreateModalOpen,
         isEditModalOpen,
         setIsEditModalOpen,
-        roles,
-        setRoles,
       }}
     >
       {children}
