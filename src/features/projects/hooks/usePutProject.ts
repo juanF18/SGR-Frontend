@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 import axiosInstance from '@/context/AxiosInterceptor';
-import { ProjectRequest } from '../models/project.model';
 
 export function usePutProject(getProjects: () => void) {
   const {
@@ -9,12 +8,22 @@ export function usePutProject(getProjects: () => void) {
     isError,
     error,
   } = useMutation({
-    mutationFn: async (projectData: ProjectRequest) => {
-      const response = await axiosInstance.put(`/projects/${projectData.id}/`, projectData); // Endpoint para actualizar proyecto
+    mutationFn: async ({
+      projectId,
+      projectData,
+    }: {
+      projectId: string;
+      projectData: FormData;
+    }) => {
+      const response = await axiosInstance.put(`/projects/${projectId}`, projectData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       return response;
     },
     onSuccess: () => {
-      getProjects(); // Refresca la lista de proyectos al actualizar uno
+      getProjects();
     },
   });
 

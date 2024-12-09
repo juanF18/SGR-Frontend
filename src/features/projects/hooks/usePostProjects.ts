@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 import axiosInstance from '@/context/AxiosInterceptor';
-import { ProjectRequest } from '../models/project.model';
 
 export function usePostProject(getProjects: () => void) {
   const {
@@ -9,8 +8,12 @@ export function usePostProject(getProjects: () => void) {
     isError,
     error,
   } = useMutation({
-    mutationFn: async (projectData: ProjectRequest) => {
-      const response = await axiosInstance.post('/projects/', projectData); // Endpoint para crear un proyecto
+    mutationFn: async (projectData: FormData) => {
+      const response = await axiosInstance.post('/projects/', projectData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Asegura que Axios lo maneje como FormData
+        },
+      });
       return response;
     },
     onSuccess: () => {
