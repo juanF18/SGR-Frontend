@@ -3,7 +3,7 @@ import { MaterialReactTable, MRT_ColumnDef, useMaterialReactTable } from 'materi
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import { Edit, Delete } from '@mui/icons-material';
 import { useConfirmationModal } from '@/context/ConfirmationModalContext';
-import { showToast } from '@/utils';
+import { formatCurrency, showToast } from '@/utils';
 import { ProjectResponse } from '../models/project.model';
 import { useProjectsContext } from '../context/project.context';
 import { useMemo } from 'react';
@@ -62,7 +62,7 @@ export function ProjectTable({ projects, isLoading }: Props) {
         accessorKey: 'value',
         header: 'Valor',
         size: 100,
-        Cell: ({ row }) => `$${row.original.value.toLocaleString()}`,
+        Cell: ({ row }) => formatCurrency(row.original.value),
       },
       {
         accessorKey: 'start_date',

@@ -7,7 +7,7 @@ import { Edit, Delete } from '@mui/icons-material';
 import { useConfirmationModal } from '@/context/ConfirmationModalContext';
 import { useGetRubros } from '../hooks';
 import { useDeleteRubro } from '../hooks/useDeleteRubro';
-import { showToast } from '@/utils';
+import { formatCurrency, showToast } from '@/utils';
 import { useRubrosContext } from '../context/rubros.context';
 import { RubroTableToolBar } from './RubroTableToolBar';
 
@@ -59,11 +59,11 @@ export function RubroTable({ rubros, isLoading }: Props) {
         accessorKey: 'value_sgr',
         header: 'Valor SGR',
         size: 50,
-        Cell: ({ row }) => row.original.value_sgr.toLocaleString(), // Asegurarse de mostrar el valor correctamente
+        Cell: ({ row }) => formatCurrency(row.original.value_sgr),
       },
       {
         accessorKey: 'project.name',
-        header: 'ID del Proyecto',
+        header: 'Proyecto',
         size: 50,
       },
       {
