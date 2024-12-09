@@ -1,27 +1,23 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { ActionMenu, InfoCards, OptionBar, ProjectStatusChart, RubrosChart } from './components';
 import { Box, Paper } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import { useGetRubros } from './hooks/useGetRubros';
 
 export default function DashBoardContainer() {
-  const rubros = [
-    'Talento humano',
-    'Equipos y software',
-    'Capacitación y eventos',
-    'Servicios tecnológicos y pruebas',
-    'Materiales, insumos y documentación',
-    'Protección del conocimiento y divulgación',
-    'Gastos de viaje',
-    'Infraestructura',
-    'Administrativos',
-    'Seguimiento',
-    'Otros',
-  ];
-  const rubrosData = [
-    16032445232, 6997302200, 1438314288, 859337340, 723549842, 398800000, 979980000, 3116214785,
-    1191885673, 569375352, 714527407,
-  ];
+  const { rubros, getRubros } = useGetRubros();
+
+  useEffect(() => {
+    getRubros();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const { rubrosLabels, rubrosData } = useMemo(() => {
+    const labels = rubros.map((rubro) => rubro.descripcion);
+    const data = rubros.map((rubro) => parseFloat(rubro.value_sgr));
+    return { rubrosLabels: labels, rubrosData: data };
+  }, [rubros]);
 
   const statusLabels = ['En ejecución', 'Terminado', 'Por terminar'];
   const statusData = [60, 30, 10]; // Por ejemplo, 60% en ejecución, 30% terminado
@@ -39,7 +35,7 @@ export default function DashBoardContainer() {
                   {/* Gráfico de Rubros de Gasto */}
                   <Grid size={{ xs: 12, md: 6, sm: 6 }}>
                     <Paper sx={{ padding: 1 }}>
-                      <RubrosChart labels={rubros} data={rubrosData} />
+                      <RubrosChart labels={rubrosLabels} data={rubrosData} />
                     </Paper>
                   </Grid>
 
