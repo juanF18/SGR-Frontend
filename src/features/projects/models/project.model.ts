@@ -8,8 +8,8 @@ export interface ProjectRequest {
   value: number;
   start_date: string;
   end_date: string;
-  file_budget_url: string;
-  file_activity_url: string;
+  file_budget: File;
+  file_activity: File;
 }
 
 export interface ProjectResponse {
@@ -21,5 +21,5 @@ export interface ProjectResponse {
   start_date: string;
   end_date: string;
   file_budget_url: string;
-  file_activity_url: string;
+  file_activities_url: string;
 }
