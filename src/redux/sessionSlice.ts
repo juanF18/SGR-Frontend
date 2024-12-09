@@ -7,12 +7,23 @@ const sessionSlice = createSlice({
   initialState: EmptySessionState,
   reducers: {
     login: (state, action: PayloadAction<SessionState>) => {
-      const { email, firstName, lastName, role, accessToken, refreshToken, entityName } =
-        action.payload;
+      const {
+        email,
+        firstName,
+        lastName,
+        role,
+        user_id,
+        entity_id,
+        accessToken,
+        refreshToken,
+        entityName,
+      } = action.payload;
       state.email = email;
       state.firstName = firstName;
       state.lastName = lastName;
       state.role = role;
+      state.user_id = user_id;
+      state.entity_id = entity_id;
       state.accessToken = accessToken;
       state.refreshToken = refreshToken;
       state.entityName = entityName;
@@ -22,6 +33,8 @@ const sessionSlice = createSlice({
       state.firstName = '';
       state.lastName = '';
       state.role = '';
+      state.user_id = '';
+      state.entity_id = '';
       state.accessToken = '';
       state.refreshToken = '';
       state.entityName = '';
