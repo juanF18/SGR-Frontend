@@ -1,15 +1,16 @@
 import { Box, IconButton } from '@mui/material';
 import { MaterialReactTable, MRT_ColumnDef, useMaterialReactTable } from 'material-react-table';
-import { MRT_Localization_ES } from 'material-react-table/locales/es'; // Para la localización en español
-import { Edit, Delete, AttachFile } from '@mui/icons-material'; // Íconos de editar, eliminar y archivo adjunto
-import { useConfirmationModal } from '@/context/ConfirmationModalContext'; // Confirmación para eliminar
-import { showToast } from '@/utils'; // Función para mostrar mensajes de éxito/error
+import { MRT_Localization_ES } from 'material-react-table/locales/es';
+import { Edit, Delete } from '@mui/icons-material';
+import { useConfirmationModal } from '@/context/ConfirmationModalContext';
+import { showToast } from '@/utils';
 import { ProjectResponse } from '../models/project.model';
 import { useProjectsContext } from '../context/project.context';
 import { useMemo } from 'react';
 import { ProjectTableToolBar } from './ProjectsTableToolBar';
 import { useGetProjects } from '../hooks/useGetProjects';
 import { useDeleteProject } from '../hooks/useDeleteProject';
+import { FaFileInvoiceDollar, FaTasks } from 'react-icons/fa';
 
 interface Props {
   projects: ProjectResponse[];
@@ -76,40 +77,8 @@ export function ProjectTable({ projects, isLoading }: Props) {
         Cell: ({ row }) => new Date(row.original.end_date).toLocaleDateString('es-CO'),
       },
       {
-        accessorKey: 'file_budget_url',
-        header: 'Archivo de Presupuesto',
-        size: 150,
-        Cell: ({ row }) => (
-          <IconButton
-            color="primary"
-            component="a"
-            href={row.original.file_budget_url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <AttachFile />
-          </IconButton>
-        ),
-      },
-      {
-        accessorKey: 'file_activity_url',
-        header: 'Archivo de Actividad',
-        size: 150,
-        Cell: ({ row }) => (
-          <IconButton
-            color="primary"
-            component="a"
-            href={row.original.file_activity_url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <AttachFile />
-          </IconButton>
-        ),
-      },
-      {
         accessorKey: 'actions',
-        header: 'Acciones',
+        header: '',
         size: 50,
         Cell: ({ row }) => (
           <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -125,6 +94,26 @@ export function ProjectTable({ projects, isLoading }: Props) {
             {/* Botón para eliminar */}
             <IconButton color="error" onClick={() => handleDelete(row.original)}>
               <Delete />
+            </IconButton>
+            {/* Botón para archivo de presupuesto */}
+            <IconButton
+              color="primary"
+              component="a"
+              href={row.original.file_budget_url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaFileInvoiceDollar />
+            </IconButton>
+            {/* Botón para archivo de actividades */}
+            <IconButton
+              color="inherit"
+              component="a"
+              href={row.original.file_activities_url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaTasks />
             </IconButton>
           </Box>
         ),
