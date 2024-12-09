@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from 'react';
 import { ActionMenu, InfoCards, OptionBar, ProjectStatusChart, RubrosChart } from './components';
 import { Box, Paper } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import { useGetRubros } from './hooks/useGetRubros';
+import { useGetRubros } from '../rubros/hooks';
 
 export default function DashBoardContainer() {
   const { rubros, getRubros } = useGetRubros();
@@ -15,7 +15,7 @@ export default function DashBoardContainer() {
 
   const { rubrosLabels, rubrosData } = useMemo(() => {
     const labels = rubros.map((rubro) => rubro.descripcion);
-    const data = rubros.map((rubro) => parseFloat(rubro.value_sgr));
+    const data = rubros.map((rubro) => rubro.value_sgr);
     return { rubrosLabels: labels, rubrosData: data };
   }, [rubros]);
 
