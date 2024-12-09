@@ -12,7 +12,6 @@ import { ProjectForm } from './ProjectForm'; // Asegúrate de tener un formulari
 import { showToast } from '@/utils';
 import { useGetProjects } from '../hooks/useGetProjects';
 import { usePostProject } from '../hooks/usePostProjects';
-import { ProjectRequest } from '../models/project.model';
 
 interface Props {
   open: boolean;
@@ -23,7 +22,7 @@ export function CreateProjectModal({ open, onClose }: Props) {
   const { getProjects } = useGetProjects();
   const { postProject, isPending } = usePostProject(getProjects);
 
-  const handleCreateProject = async (data: ProjectRequest) => {
+  const handleCreateProject = async (data: FormData) => {
     try {
       const response = await postProject(data);
       if (response.status === 201) {

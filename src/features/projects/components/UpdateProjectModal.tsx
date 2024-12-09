@@ -12,7 +12,7 @@ import { ProjectForm } from './ProjectForm'; // Asegúrate de que este es el for
 import { showToast } from '@/utils';
 import { useGetProjects } from '../hooks/useGetProjects';
 import { usePutProject } from '../hooks/usePutProject';
-import { ProjectRequest } from '../models/project.model';
+import { useProjectsContext } from '../context/project.context';
 
 interface Props {
   open: boolean;
@@ -20,12 +20,16 @@ interface Props {
 }
 
 export function UpdateProjectModal({ open, onClose }: Props) {
+  const { selectedProject } = useProjectsContext();
   const { getProjects } = useGetProjects();
   const { putProject, isPending } = usePutProject(getProjects);
 
-  const handleUpdateProject = async (data: ProjectRequest) => {
+  const handleUpdateProject = async (data: FormData) => {
     try {
-      const response = await putProject(data);
+      const response = await putProject({
+        projectId: selectedProject?.id ?? '',
+        projectData: data,
+      });
       if (response.status === 200) {
         showToast('Proyecto actualizado con éxito', 'success');
       } else {
