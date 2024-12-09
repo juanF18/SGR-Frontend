@@ -20,3 +20,8 @@ export interface CDPResponse {
   is_canceled: boolean;
   rubro: RubroResponse;
 }
+
+export interface CDPRequestGenerate {
+  cdps_id: string;
+  user_id: string;
+}

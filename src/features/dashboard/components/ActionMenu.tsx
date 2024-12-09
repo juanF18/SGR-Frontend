@@ -3,10 +3,12 @@ import { Paper, Box, Typography, IconButton } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { AddCircle, Assignment, AccountBalanceWallet, Autorenew } from '@mui/icons-material';
 import { showToast } from '@/utils';
+import { useDashboardContext } from '../context/dashboard.context';
 
 export function ActionMenu() {
+  const { setIsGenerateCDPModalOpen } = useDashboardContext();
   const handleGenerateCDP = () => {
-    showToast('Generar CDP', 'success');
+    setIsGenerateCDPModalOpen(true);
   };
 
   const handleCreateContract = () => {

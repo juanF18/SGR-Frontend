@@ -13,3 +13,7 @@ export interface RubroResponse {
   descripcion: string;
   value_sgr: number;
 }
+
+export interface RubrosSumResponse {
+  total_value_sgr: number;
+}

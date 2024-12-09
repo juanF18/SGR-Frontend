@@ -132,27 +132,6 @@ export function CDPForm({ onSubmit }: Props) {
           />
         </Grid>
 
-        {/* Campo para la descripción */}
-        <Grid size={{ xs: 12 }}>
-          <Controller
-            name="description"
-            control={control}
-            rules={{ required: 'La descripción es requerida' }}
-            render={({ field, fieldState }) => (
-              <TextField
-                {...field}
-                label="Descripción"
-                error={!!fieldState.error}
-                helperText={fieldState.error?.message}
-                size="medium"
-                fullWidth
-                multiline
-                rows={3}
-              />
-            )}
-          />
-        </Grid>
-
         {/* Campo para seleccionar el rubro */}
         <Grid size={{ xs: 12, sm: 6 }}>
           <Controller
@@ -177,6 +156,27 @@ export function CDPForm({ onSubmit }: Props) {
                     fullWidth
                   />
                 )}
+              />
+            )}
+          />
+        </Grid>
+
+        {/* Campo para la descripción */}
+        <Grid size={{ xs: 12 }}>
+          <Controller
+            name="description"
+            control={control}
+            rules={{ required: 'La descripción es requerida' }}
+            render={({ field, fieldState }) => (
+              <TextField
+                {...field}
+                label="Descripción"
+                error={!!fieldState.error}
+                helperText={fieldState.error?.message}
+                size="medium"
+                fullWidth
+                multiline
+                rows={3}
               />
             )}
           />
