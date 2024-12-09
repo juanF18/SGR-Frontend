@@ -5,6 +5,8 @@ import { Autocomplete, TextField } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useRubrosContext } from '../context/rubros.context';
 import { useGetProjects } from '@/features/projects/hooks/useGetProjects';
+import { NumberFormatBase } from 'react-number-format';
+import { formatInput } from '@/utils';
 
 interface Props {
   onSubmit: (data: RubroRequest) => void;
@@ -47,7 +49,7 @@ export function RubroForm({ onSubmit }: Props) {
   // Función para manejar el envío del formulario
   const handleFormSubmit = (data: RubroRequest) => {
     data.descripcion = data.descripcion.trim();
-    data.value_sgr = parseFloat(data.value_sgr.toString()); // Asegurar que el valor sea un número
+    data.value_sgr = Number(data.value_sgr.toString().replace(/[$.]/g, ''));
 
     onSubmit(data); // Enviar los datos al padre
   };
@@ -85,14 +87,18 @@ export function RubroForm({ onSubmit }: Props) {
               min: { value: 0, message: 'El valor SGR debe ser mayor o igual a 0' },
             }}
             render={({ field, fieldState }) => (
-              <TextField
+              <NumberFormatBase
                 {...field}
-                label="Valor SGR"
-                type="number"
+                customInput={TextField}
+                label="Monto"
+                variant="outlined"
+                fullWidth
+                size="medium"
                 error={!!fieldState.error}
                 helperText={fieldState.error?.message}
-                size="medium"
-                fullWidth
+                format={formatInput}
+                onValueChange={(values) => field.onChange(values.floatValue)}
+                value={field.value}
               />
             )}
           />

@@ -5,9 +5,9 @@ import {
   FaCalendarAlt,
   FaBuilding,
   FaTasks,
+  FaFileInvoice,
 } from 'react-icons/fa';
 import { MenuItem } from '@/models';
-import { AiOutlineBarChart } from 'react-icons/ai';
 import { MdCategory } from 'react-icons/md';
 
 export const ROUTE_SIGN_IN = '/sign-in';
@@ -19,6 +19,7 @@ export const ROUTE_TASKS = '/tasks';
 export const ROUTE_ENTITIES = '/entities';
 export const ROUTE_ACTIVITIES = '/activities';
 export const ROUTE_RUBROS = '/rubros';
+export const ROUTE_CDP = '/cdps';
 
 export const MENU_ITEMS: MenuItem[] = [
   {
@@ -42,14 +43,14 @@ export const MENU_ITEMS: MenuItem[] = [
     route: ROUTE_TASKS,
   },
   {
+    label: 'CDPs',
+    icon: FaFileInvoice,
+    route: ROUTE_CDP,
+  },
+  {
     label: 'Rubros',
     icon: MdCategory,
     route: ROUTE_RUBROS,
-  },
-  {
-    label: 'Reportes',
-    icon: AiOutlineBarChart,
-    route: ROUTE_REPORTS,
   },
   {
     label: 'Usuarios',
