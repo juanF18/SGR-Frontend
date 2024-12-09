@@ -15,7 +15,7 @@ export function usePutProject(getProjects: () => void) {
       projectId: string;
       projectData: FormData;
     }) => {
-      const response = await axiosInstance.put(`/projects/${projectId}`, projectData, {
+      const response = await axiosInstance.put(`/projects/${projectId}/`, projectData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
