@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '@/context/AxiosInterceptor';
-import { Rubro } from '../models';
+import { RubroResponse } from '../models';
 
 export function useGetRubros() {
   const {
@@ -10,11 +10,11 @@ export function useGetRubros() {
   } = useQuery({
     queryKey: ['getAllRubros'],
     queryFn: async () => {
-      const res = await axiosInstance.get<Rubro[]>('/rubros');
-      return res;
+      const res = await axiosInstance.get<RubroResponse[]>('/rubros');
+      return res.data;
     },
   });
 
-  const rubros = data?.data || []; // Accediendo a los datos de rubros
+  const rubros = data || [];
   return { rubros, isLoading, getRubros };
 }
