@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { CDPForm } from './CDPForm';
 import { CDPRequest } from '../models';
-import { usePostCDP } from '../hooks';
+import { useGetCDPs, usePostCDP } from '../hooks';
 import { showToast } from '@/utils';
 
 interface Props {
@@ -19,7 +19,8 @@ interface Props {
 }
 
 export function CreateCDPModal({ open, onClose }: Props) {
-  const { postCDP, isPending } = usePostCDP();
+  const { getCDPs } = useGetCDPs();
+  const { postCDP, isPending } = usePostCDP(getCDPs);
 
   const handleCreateCDP = async (data: CDPRequest) => {
     try {
