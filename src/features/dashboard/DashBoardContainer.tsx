@@ -4,8 +4,17 @@ import { ActionMenu, InfoCards, OptionBar, ProjectStatusChart, RubrosChart } fro
 import { Box, Paper } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useGetRubros } from '../rubros/hooks';
+import { useDashboardContext } from './context/dashboard.context';
+import { CreateProjectModal } from '../projects/components/CreateProjectModal';
+import { GenerateCDPModal } from '../cdp/components/GenerateCDPModa';
 
 export default function DashBoardContainer() {
+  const {
+    isCreateProjectModalOpen,
+    setIsCreateProjectModalOpen,
+    isGenerateCDPModalOpen,
+    setIsGenerateCDPModalOpen,
+  } = useDashboardContext();
   const { rubros, getRubros } = useGetRubros();
 
   useEffect(() => {
@@ -24,7 +33,11 @@ export default function DashBoardContainer() {
 
   return (
     <>
-      <OptionBar projects={[]} onCreateProject={() => {}} onSearchProject={() => {}} />
+      <OptionBar
+        projects={[]}
+        onCreateProject={() => setIsCreateProjectModalOpen(true)}
+        onSearchProject={() => {}}
+      />
       <Grid container>
         <Grid size={{ xs: 12, sm: 8 }} sx={{ p: 1 }}>
           <InfoCards />
@@ -54,6 +67,14 @@ export default function DashBoardContainer() {
           <ActionMenu />
         </Grid>
       </Grid>
+      <CreateProjectModal
+        open={isCreateProjectModalOpen}
+        onClose={() => setIsCreateProjectModalOpen(false)}
+      />
+      <GenerateCDPModal
+        open={isGenerateCDPModalOpen}
+        onClose={() => setIsGenerateCDPModalOpen(false)}
+      />
     </>
   );
 }

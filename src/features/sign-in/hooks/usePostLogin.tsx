@@ -27,6 +27,8 @@ export function usePostLogin() {
           firstName: data.data.first_name,
           lastName: data.data.last_name,
           role: data.data.role_name,
+          entity_id: data.data.entity_id,
+          user_id: data.data.user_id,
           accessToken: data.data.access,
           refreshToken: data.data.refresh,
           entityName: data.data.entity_name,

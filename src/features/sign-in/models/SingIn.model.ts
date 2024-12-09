@@ -8,6 +8,8 @@ export interface LoginResponse {
   first_name: string;
   last_name: string;
   role_name: string;
+  entity_id: string;
+  user_id: string;
   access: string;
   refresh: string;
   entity_name: string;
