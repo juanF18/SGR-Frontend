@@ -8,6 +8,9 @@ import { useDashboardContext } from './context/dashboard.context';
 import { CreateProjectModal } from '../projects/components/CreateProjectModal';
 import { GenerateCDPModal } from '../cdp/components/GenerateCDPModa';
 import { useGetTaskStatistics } from '../tasks/hooks/useGetTaskStatistics';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { useGetProjectsByEntity } from '../projects/hooks';
 
 export default function DashBoardContainer() {
   const {
@@ -16,12 +19,15 @@ export default function DashBoardContainer() {
     isGenerateCDPModalOpen,
     setIsGenerateCDPModalOpen,
   } = useDashboardContext();
+  const session = useSelector((state: RootState) => state.session);
   const { rubros, getRubros } = useGetRubros();
   const { getTaskStatistics, statistics } = useGetTaskStatistics();
+  const { projects, getProjects } = useGetProjectsByEntity(session.entity_id);
 
   useEffect(() => {
     getRubros();
     getTaskStatistics();
+    getProjects();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -44,7 +50,7 @@ export default function DashBoardContainer() {
   return (
     <>
       <OptionBar
-        projects={[]}
+        projects={projects}
         onCreateProject={() => setIsCreateProjectModalOpen(true)}
         onSearchProject={() => {}}
       />
