@@ -18,6 +18,7 @@ import { logout } from '@/redux/sessionSlice';
 import { FiUser } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
 import { ROUTE_SIGN_IN } from '@/constants';
+import { clearProject } from '@/redux/projectSlice';
 
 const DRAWER_WIDTH = 240;
 const CLOSED_DRAWER_WIDTH = 60;
@@ -28,6 +29,7 @@ export function CustomTopBar() {
   const router = useRouter();
   const dispatch = useDispatch();
   const session = useSelector((state: RootState) => state.session);
+  const project = useSelector((state: RootState) => state.project);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -39,6 +41,7 @@ export function CustomTopBar() {
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(clearProject());
     handleMenuClose();
     router.push(ROUTE_SIGN_IN);
   };
@@ -59,6 +62,8 @@ export function CustomTopBar() {
         <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
           {pageTitle}
         </Typography>
+
+        <Typography>{project.projectName}</Typography>
 
         {/* Botón de usuario */}
         {session.firstName ? (
