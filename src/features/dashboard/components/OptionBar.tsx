@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Autocomplete, TextField, Button } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { clearProject, setProject } from '@/redux/projectSlice';
 
 interface Project {
   id: string;
@@ -14,20 +17,43 @@ interface Props {
 }
 
 export function OptionBar({ projects, onCreateProject, onSearchProject }: Props) {
+  const dispatch = useDispatch();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const selectedProjectFromStore = useSelector((state: RootState) => state.project);
+
+  useEffect(() => {
+    if (projects.length > 0 && selectedProjectFromStore.projectId === '') {
+      const firstProject = projects[0];
+      setSelectedProject(firstProject);
+      dispatch(
+        setProject({
+          id: firstProject.id,
+          name: firstProject.name,
+        })
+      );
+    }
+  }, [dispatch, projects, selectedProjectFromStore]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSearchChange = (_: any, value: Project | null) => {
     setSelectedProject(value);
     if (value) {
-      onSearchProject(value.id); // Llamada para filtrar o hacer algo con el proyecto seleccionado
+      onSearchProject(value.id);
+      dispatch(
+        setProject({
+          id: value.id,
+          name: value.name,
+        })
+      );
+    } else {
+      dispatch(clearProject());
     }
   };
 
   return (
     <Grid container spacing={2} justifyContent="space-between" alignItems="center">
       {/* Columna para el Autocomplete */}
-      <Grid size={{ xs: 12, sm: 3 }}>
+      <Grid size={{ xs: 12, sm: 5 }}>
         <Autocomplete
           value={selectedProject}
           onChange={handleSearchChange}
