@@ -21,3 +21,10 @@ export interface TaskRequest {
   end_date: string | null;
   id?: string;
 }
+
+export interface TaskStatisticsModel {
+  Pendiente: number;
+  'En progreso': number;
+  Finalizada: number;
+  Cancelada: number;
+}
