@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { configureStore } from '@reduxjs/toolkit';
 import sessionReducer from './sessionSlice';
+import projectReducer from './projectSlice';
 import {
   persistStore,
   persistReducer,
@@ -26,12 +27,14 @@ const persistConfig = {
   storage: storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, sessionReducer);
+const persistedSessionReducer = persistReducer(persistConfig, sessionReducer);
+const persistedProjectReducer = persistReducer(persistConfig, projectReducer);
 
 // Creamos el store de Redux
 export const store = configureStore({
   reducer: {
-    session: persistedReducer,
+    session: persistedSessionReducer,
+    project: persistedProjectReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
