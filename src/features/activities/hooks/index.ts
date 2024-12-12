@@ -1,4 +1,5 @@
-export { useDeleteActivity } from './useDeleteActivity';
-export { useGetActivities } from './useGetActivities';
-export { usePostActivity } from './usePostActivity';
-export { usePutActivity } from './usePutActivities';
+export * from './useDeleteActivity';
+export * from './useGetActivities';
+export * from './usePostActivity';
+export * from './usePutActivities';
+export * from './useGetActivitiesByProject';

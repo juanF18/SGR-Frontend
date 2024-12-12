@@ -1,9 +1,11 @@
 import { Container } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import React, { useEffect } from 'react';
-import { useGetActivities } from './hooks/useGetActivities';
 import { useActivityContext } from './context/activity.context';
 import { ActivityTable, CreateActivityModal, UpdateActivityModal } from './components';
+import { useGetActivitiesByProject } from './hooks';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 export default function ActivitiesContainer() {
   // Contexto de actividades
@@ -14,7 +16,9 @@ export default function ActivitiesContainer() {
     isEditActivityModalOpen,
   } = useActivityContext();
 
-  const { activities, isLoading, getActivities } = useGetActivities();
+  const project = useSelector((state: RootState) => state.project);
+
+  const { activities, isLoading, getActivities } = useGetActivitiesByProject(project.projectId);
   useEffect(() => {
     getActivities();
     // eslint-disable-next-line react-hooks/exhaustive-deps
