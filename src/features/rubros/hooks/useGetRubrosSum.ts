@@ -14,7 +14,7 @@ export function useGetRubrosSum() {
     },
   });
 
-  const totalValueSgr = data?.data.total_value_sgr || 0; // Si no hay datos, usar 0 como valor predeterminado
+  const totalValueSgr = data?.data.total_value_sgr || 0;
 
   return { totalValueSgr, isLoading, getRubrosSum };
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from 'react';
 import { ActionMenu, InfoCards, OptionBar, ProjectStatusChart, RubrosChart } from './components';
 import { Box, Paper } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import { useGetRubros } from '../rubros/hooks';
+import { useGetRubrosByProject } from '../rubros/hooks';
 import { useDashboardContext } from './context/dashboard.context';
 import { CreateProjectModal } from '../projects/components/CreateProjectModal';
 import { GenerateCDPModal } from '../cdp/components/GenerateCDPModa';
@@ -19,8 +19,9 @@ export default function DashBoardContainer() {
     isGenerateCDPModalOpen,
     setIsGenerateCDPModalOpen,
   } = useDashboardContext();
+  const project = useSelector((state: RootState) => state.project);
   const session = useSelector((state: RootState) => state.session);
-  const { rubros, getRubros } = useGetRubros();
+  const { rubros, getRubros } = useGetRubrosByProject(project.projectId);
   const { getTaskStatistics, statistics } = useGetTaskStatistics();
   const { projects, getProjects } = useGetProjectsByEntity(session.entity_id);
 
@@ -29,7 +30,7 @@ export default function DashBoardContainer() {
     getTaskStatistics();
     getProjects();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [project, session]);
 
   // Usamos useMemo para evitar cálculos innecesarios y mejorar el rendimiento
   const { rubrosLabels, rubrosData } = useMemo(() => {
