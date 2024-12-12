@@ -3,3 +3,4 @@ export * from './usePostRubro';
 export * from './useGetRubros';
 export * from './useDeleteRubro';
 export * from './useGetRubrosSum';
+export * from './useGetRubrosByProject';
