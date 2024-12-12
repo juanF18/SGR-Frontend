@@ -4,14 +4,18 @@ import React, { useEffect } from 'react';
 import { RubroTable } from './components'; // Componente que muestra la tabla de rubros
 import { CreateRubroModal } from './components/CreateRubroModal'; // Modal para crear rubro
 import { UpdateRubroModal } from './components/UpdateRubroModal'; // Modal para editar rubro
-import { useGetRubros } from './hooks'; // Hook para obtener los rubros
+import { useGetRubrosByProject } from './hooks'; // Hook para obtener los rubros
 import { useRubrosContext } from './context/rubros.context';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 export default function RubrosContainer() {
   const { setIsCreateModalOpen, isCreateModalOpen, setIsEditModalOpen, isEditModalOpen } =
     useRubrosContext();
 
-  const { rubros, isLoading, getRubros } = useGetRubros();
+  const projectSelected = useSelector((state: RootState) => state.project);
+
+  const { rubros, isLoading, getRubros } = useGetRubrosByProject(projectSelected.projectId);
 
   useEffect(() => {
     getRubros();
