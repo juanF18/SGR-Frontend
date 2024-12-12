@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useContext, useState } from 'react';
 import { TaskResponseModel } from '../models/task.model';
+import { ActivityResponse } from '@/features/activities/models';
 
 export interface TaskContextType {
   selectedTask: TaskResponseModel | null;
@@ -8,6 +9,8 @@ export interface TaskContextType {
   setIsCreateModalOpen: (state: boolean) => void;
   isEditModalOpen: boolean;
   setIsEditModalOpen: (state: boolean) => void;
+  selectedActivity: ActivityResponse | null;
+  setSelectedActivity: (activity: ActivityResponse | null) => void;
 }
 
 export const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -16,6 +19,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   const [selectedTask, setSelectedTask] = useState<TaskResponseModel | null>(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedActivity, setSelectedActivity] = useState<ActivityResponse | null>(null);
 
   return (
     <TaskContext.Provider
@@ -26,6 +30,8 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
         setIsCreateModalOpen,
         isEditModalOpen,
         setIsEditModalOpen,
+        selectedActivity,
+        setSelectedActivity,
       }}
     >
       {children}
