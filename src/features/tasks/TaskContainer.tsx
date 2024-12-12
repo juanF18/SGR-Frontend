@@ -1,18 +1,29 @@
 import { Container } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import React, { useEffect } from 'react';
-import { useGetTasks } from './hooks';
+import { useGetTasksByProject } from './hooks';
 import { useTaskContext } from './context/tasks.context';
 import { CreateTaskModal, TaskTable, UpdateTaskModal } from './components';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 export default function TasksContainer() {
-  const { setIsCreateModalOpen, isCreateModalOpen, setIsEditModalOpen, isEditModalOpen } =
-    useTaskContext(); // Contexto específico de tareas
+  const {
+    setIsCreateModalOpen,
+    isCreateModalOpen,
+    setIsEditModalOpen,
+    isEditModalOpen,
+    selectedActivity,
+  } = useTaskContext();
 
-  const { tasks, isLoading, getTasks } = useGetTasks(); // Obtener tareas
+  const project = useSelector((state: RootState) => state.project);
+  const { tasks, isLoading, getTasks } = useGetTasksByProject({
+    projectId: project.projectId,
+    activityID: selectedActivity?.id ?? '',
+  });
 
   useEffect(() => {
-    getTasks(); // Obtener tareas al cargar el componente
+    getTasks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
