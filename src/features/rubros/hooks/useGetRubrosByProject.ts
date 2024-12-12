@@ -8,7 +8,7 @@ export function useGetRubrosByProject(projectId: string) {
     isFetching: isLoading,
     refetch: getRubros,
   } = useQuery({
-    queryKey: ['getAllRubros'],
+    queryKey: ['getAllRubros', projectId],
     queryFn: async () => {
       const res = await axiosInstance.get<RubroResponse[]>(`/rubros/project/${projectId}`);
       return res.data;
