@@ -11,7 +11,7 @@ export function usePostCDP(getCDPs: () => void) {
   } = useMutation({
     mutationFn: async (cdpData: CDPRequest) => {
       const response = await axiosInstance.post('/cdps', cdpData);
-      return response.data;
+      return response;
     },
     onSuccess: () => {
       getCDPs();
