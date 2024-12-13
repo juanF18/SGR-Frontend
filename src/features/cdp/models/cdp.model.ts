@@ -1,3 +1,4 @@
+import { ActivityResponse } from '@/features/activities/models';
 import { RubroResponse } from '@/features/rubros/models';
 
 export interface CDPRequest {
@@ -8,6 +9,7 @@ export interface CDPRequest {
   is_generated: boolean;
   is_canceled: boolean;
   rubro_id: string;
+  acitivity_id: string;
 }
 
 export interface CDPResponse {
@@ -19,6 +21,7 @@ export interface CDPResponse {
   is_generated: boolean;
   is_canceled: boolean;
   rubro: RubroResponse;
+  activity: ActivityResponse;
 }
 
 export interface CDPRequestGenerate {
