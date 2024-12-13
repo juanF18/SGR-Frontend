@@ -4,6 +4,10 @@ export interface MovementResponse {
   id: string;
   amount: string;
   description: string;
-  type: 'I' | 'E'; // Ingreso (I) o Egreso (E)
+  type: 'I' | 'E';
   cdp: CDPResponse;
+}
+
+export interface MovementsSumResponse {
+  total_amount: number;
 }
