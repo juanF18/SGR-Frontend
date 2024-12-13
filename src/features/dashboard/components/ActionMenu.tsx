@@ -4,8 +4,11 @@ import Grid from '@mui/material/Grid2';
 import { AddCircle, Assignment, AccountBalanceWallet, Autorenew } from '@mui/icons-material';
 import { showToast } from '@/utils';
 import { useDashboardContext } from '../context/dashboard.context';
+import { useRouter } from 'next/navigation';
+import { ROUTE_MOVEMENTS } from '@/constants';
 
 export function ActionMenu() {
+  const route = useRouter();
   const { setIsGenerateCDPModalOpen } = useDashboardContext();
   const handleGenerateCDP = () => {
     setIsGenerateCDPModalOpen(true);
@@ -16,7 +19,7 @@ export function ActionMenu() {
   };
 
   const handleMovements = () => {
-    showToast('Movimientos', 'success');
+    route.push(ROUTE_MOVEMENTS);
   };
 
   const handleGenerateMovements = () => {
