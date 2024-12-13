@@ -61,6 +61,12 @@ export function ActivityTable({ activities, isLoading }: Props) {
         },
       },
       {
+        accessorKey: 'duration',
+        header: 'Duracion (Meses)',
+        size: 100,
+        Cell: ({ row }) => row.original.duration + ' meses',
+      },
+      {
         accessorKey: 'start_date',
         header: 'Fecha de Inicio',
         size: 100,
