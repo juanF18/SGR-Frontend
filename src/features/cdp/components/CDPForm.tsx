@@ -9,6 +9,9 @@ import { NumberFormatBase } from 'react-number-format';
 import { formatInput } from '@/utils';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
+import { useGetActivitiesByProject } from '@/features/activities/hooks';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 interface Props {
   onSubmit: (data: CDPRequest) => void;
@@ -16,10 +19,13 @@ interface Props {
 
 export function CDPForm({ onSubmit }: Props) {
   const { selectedCDP } = useCDPsContext();
+  const project = useSelector((state: RootState) => state.project);
   const { rubros, getRubros } = useGetRubros();
+  const { activities, getActivities } = useGetActivitiesByProject(project.projectId);
 
   useEffect(() => {
     getRubros();
+    getActivities();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -33,7 +39,7 @@ export function CDPForm({ onSubmit }: Props) {
       is_generated: false,
       is_canceled: false,
       rubro_id: '',
-      acitivity_id: '',
+      activity_id: '',
       ...(selectedCDP ? { id: selectedCDP.id } : {}),
     },
   });
@@ -44,7 +50,7 @@ export function CDPForm({ onSubmit }: Props) {
       reset({
         ...selectedCDP,
         rubro_id: selectedCDP.rubro.id,
-        acitivity_id: selectedCDP.activity.id,
+        activity_id: selectedCDP.activity.id,
       });
     } else {
       // Si no hay CDP seleccionado, reseteamos el formulario a los valores predeterminados
@@ -56,7 +62,7 @@ export function CDPForm({ onSubmit }: Props) {
         is_generated: false,
         is_canceled: false,
         rubro_id: '',
-        acitivity_id: '',
+        activity_id: '',
       });
     }
   }, [selectedCDP, reset]);
@@ -155,6 +161,34 @@ export function CDPForm({ onSubmit }: Props) {
                     label="Rubro"
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
+                    size="medium"
+                    fullWidth
+                  />
+                )}
+              />
+            )}
+          />
+        </Grid>
+        {/* Campo para seleccionar la actividad */}
+        <Grid size={{ xs: 12, sm: 6 }}>
+          <Controller
+            name="activity_id"
+            control={control}
+            rules={{
+              required: 'La actividad es requerida',
+            }}
+            render={({ field, fieldState }) => (
+              <Autocomplete
+                options={activities ?? []}
+                getOptionLabel={(option) => option.name}
+                value={activities?.find((activity) => activity.id === field.value) || null}
+                onChange={(event, newValue) => field.onChange(newValue ? newValue.id : '')}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Actividad"
+                    error={!!fieldState.error} // Mostramos error si lo hay
+                    helperText={fieldState.error?.message} // Mensaje de error
                     size="medium"
                     fullWidth
                   />

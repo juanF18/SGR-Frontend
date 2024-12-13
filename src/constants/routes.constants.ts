@@ -9,6 +9,7 @@ import {
 } from 'react-icons/fa';
 import { MenuItem } from '@/models';
 import { MdCategory } from 'react-icons/md';
+import { AiOutlineTransaction } from 'react-icons/ai';
 
 export const ROUTE_SIGN_IN = '/sign-in';
 export const ROUTE_DASHBOARD = '/dashboard';
@@ -20,6 +21,7 @@ export const ROUTE_ENTITIES = '/entities';
 export const ROUTE_ACTIVITIES = '/activities';
 export const ROUTE_RUBROS = '/rubros';
 export const ROUTE_CDP = '/cdps';
+export const ROUTE_MOVEMENTS = '/movements';
 
 export const MENU_ITEMS: MenuItem[] = [
   {
@@ -51,6 +53,11 @@ export const MENU_ITEMS: MenuItem[] = [
     label: 'Rubros',
     icon: MdCategory,
     route: ROUTE_RUBROS,
+  },
+  {
+    label: 'Movimientos',
+    icon: AiOutlineTransaction,
+    route: ROUTE_MOVEMENTS,
   },
   {
     label: 'Usuarios',
