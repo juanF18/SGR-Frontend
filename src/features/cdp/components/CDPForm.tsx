@@ -33,6 +33,7 @@ export function CDPForm({ onSubmit }: Props) {
       is_generated: false,
       is_canceled: false,
       rubro_id: '',
+      acitivity_id: '',
       ...(selectedCDP ? { id: selectedCDP.id } : {}),
     },
   });
@@ -43,6 +44,7 @@ export function CDPForm({ onSubmit }: Props) {
       reset({
         ...selectedCDP,
         rubro_id: selectedCDP.rubro.id,
+        acitivity_id: selectedCDP.activity.id,
       });
     } else {
       // Si no hay CDP seleccionado, reseteamos el formulario a los valores predeterminados
@@ -54,6 +56,7 @@ export function CDPForm({ onSubmit }: Props) {
         is_generated: false,
         is_canceled: false,
         rubro_id: '',
+        acitivity_id: '',
       });
     }
   }, [selectedCDP, reset]);
