@@ -9,7 +9,7 @@ export interface CDPRequest {
   is_generated: boolean;
   is_canceled: boolean;
   rubro_id: string;
-  acitivity_id: string;
+  activity_id: string;
 }
 
 export interface CDPResponse {

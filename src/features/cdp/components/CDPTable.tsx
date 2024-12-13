@@ -31,7 +31,7 @@ export function CDPTable({ cdps, isLoading }: Props) {
     openModal(`¿Estás seguro de eliminar el CDP ${cdp.number}?`, async () => {
       try {
         const response = await deleteCDP(cdp.id);
-        if (response.status === 204) {
+        if (response.status === 200) {
           showToast('CDP eliminado con éxito', 'success');
         } else {
           showToast('Error al eliminar el CDP', 'error');
@@ -65,6 +65,16 @@ export function CDPTable({ cdps, isLoading }: Props) {
       {
         accessorKey: 'description',
         header: 'Descripción',
+        size: 150,
+      },
+      {
+        accessorKey: 'activity.name',
+        header: 'Actividad',
+        size: 150,
+      },
+      {
+        accessorKey: 'rubro.descripcion',
+        header: 'Rubro',
         size: 150,
       },
       {
