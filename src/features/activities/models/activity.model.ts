@@ -7,6 +7,7 @@ export interface ActivityResponse {
   start_date: string | null;
   end_date: string | null;
   state: 'Pendiente' | 'En progreso' | 'Finalizado' | 'Cancelado';
+  duration: number;
   project_id: string;
 }
 
@@ -19,5 +20,6 @@ export interface ActivityRequest {
   start_date: string | null;
   end_date: string | null;
   state: 'Pendiente' | 'En progreso' | 'Finalizado' | 'Cancelado';
+  duration: number;
   project_id: string;
 }
