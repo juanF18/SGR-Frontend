@@ -6,6 +6,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { ActivityRequest } from '../models';
 import { useActivityContext } from '../context/activity.context';
 import dayjs, { Dayjs } from 'dayjs';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { useGetRubrosByProject } from '@/features/rubros/hooks';
 
 interface Props {
   onSubmit: (data: ActivityRequest) => void;
@@ -13,9 +16,18 @@ interface Props {
 
 export function ActividadForm({ onSubmit }: Props) {
   const { selectedActivity } = useActivityContext();
+
+  const project = useSelector((state: RootState) => state.project);
+  const { rubros, getRubros } = useGetRubrosByProject(project.projectId);
+
+  useEffect(() => {
+    getRubros();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const { control, handleSubmit, reset } = useForm<ActivityRequest>({
     defaultValues: {
-      rubro: null,
+      rubro_id: null,
       name: '',
       description: '',
       type: null,
@@ -29,7 +41,18 @@ export function ActividadForm({ onSubmit }: Props) {
 
   useEffect(() => {
     if (selectedActivity) {
-      reset(selectedActivity);
+      reset({ ...selectedActivity, rubro_id: selectedActivity.rubro.id });
+    } else {
+      reset({
+        rubro_id: null,
+        name: '',
+        description: '',
+        type: null,
+        start_date: null,
+        end_date: null,
+        state: 'Pendiente',
+        project_id: '',
+      });
     }
   }, [selectedActivity, reset]);
 
@@ -46,7 +69,7 @@ export function ActividadForm({ onSubmit }: Props) {
     <form onSubmit={handleSubmit(handleFormSubmit)} id="actividad-form">
       <Grid container spacing={2} p={2}>
         {/* Campo para el nombre */}
-        <Grid size={{ xs: 12, sm: 6 }}>
+        <Grid size={{ xs: 12 }}>
           <Controller
             name="name"
             control={control}
@@ -66,7 +89,7 @@ export function ActividadForm({ onSubmit }: Props) {
         </Grid>
 
         {/* Campo para la descripción */}
-        <Grid size={{ xs: 12, sm: 6 }}>
+        <Grid size={{ xs: 12 }}>
           <Controller
             name="description"
             control={control}
@@ -77,6 +100,8 @@ export function ActividadForm({ onSubmit }: Props) {
                 error={!!fieldState.error}
                 helperText={fieldState.error?.message}
                 size="medium"
+                multiline
+                rows={3}
                 fullWidth
                 onChange={(e) => field.onChange(e.target.value.trimStart())}
               />
@@ -125,44 +150,22 @@ export function ActividadForm({ onSubmit }: Props) {
         {/* Campo para el rubro */}
         <Grid size={{ xs: 12, sm: 6 }}>
           <Controller
-            name="rubro"
+            name="rubro_id"
             control={control}
+            rules={{
+              required: 'El rubro es requerido',
+              validate: (value) => value !== '' || 'Seleccione un rubro válido',
+            }}
             render={({ field, fieldState }) => (
               <Autocomplete
-                {...field}
-                options={['Rubro 1', 'Rubro 2', 'Rubro 3']} // Aquí debes colocar los rubros disponibles
-                value={field.value || null}
-                onChange={(event, newValue) => field.onChange(newValue)}
+                options={rubros ?? []}
+                getOptionLabel={(option) => option.descripcion}
+                value={rubros?.find((rubro) => rubro.id === field.value) || null}
+                onChange={(event, newValue) => field.onChange(newValue ? newValue.id : '')}
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Rubro"
-                    error={!!fieldState.error}
-                    helperText={fieldState.error?.message}
-                    size="medium"
-                    fullWidth
-                  />
-                )}
-              />
-            )}
-          />
-        </Grid>
-
-        {/* Campo para el tipo */}
-        <Grid size={{ xs: 12, sm: 6 }}>
-          <Controller
-            name="type"
-            control={control}
-            render={({ field, fieldState }) => (
-              <Autocomplete
-                {...field}
-                options={['Tipo 1', 'Tipo 2', 'Tipo 3']} // Aquí debes colocar los tipos disponibles
-                value={field.value || null}
-                onChange={(event, newValue) => field.onChange(newValue)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Tipo"
+                    label="Rubro" // Etiqueta cambiada de "Proyecto" a "Rubro"
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
                     size="medium"
