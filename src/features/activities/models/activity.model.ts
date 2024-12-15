@@ -1,6 +1,8 @@
+import { RubroResponse } from '@/features/rubros/models';
+
 export interface ActivityResponse {
   id: string;
-  rubro: string | null;
+  rubro: RubroResponse;
   name: string;
   description: string | null;
   type: string | null;
@@ -13,7 +15,7 @@ export interface ActivityResponse {
 
 export interface ActivityRequest {
   id?: string;
-  rubro: string | null;
+  rubro_id: string | null;
   name: string;
   description: string | null;
   type: string | null;
