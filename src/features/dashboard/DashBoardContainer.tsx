@@ -8,11 +8,13 @@ import { useDashboardContext } from './context/dashboard.context';
 import { CreateProjectModal } from '../projects/components/CreateProjectModal';
 import { GenerateCDPModal } from '../cdp/components/GenerateCDPModa';
 import { useGetTaskStatistics } from '../tasks/hooks/useGetTaskStatistics';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useGetProjectsByEntity } from '../projects/hooks';
+import { setProject } from '@/redux/projectSlice';
 
 export default function DashBoardContainer() {
+  const dispatch = useDispatch();
   const {
     isCreateProjectModalOpen,
     setIsCreateProjectModalOpen,
@@ -21,14 +23,27 @@ export default function DashBoardContainer() {
   } = useDashboardContext();
   const project = useSelector((state: RootState) => state.project);
   const session = useSelector((state: RootState) => state.session);
-  const { rubros, getRubros } = useGetRubrosByProject(project.projectId);
-  const { getTaskStatistics, statistics } = useGetTaskStatistics();
   const { projects, getProjects } = useGetProjectsByEntity(session.entity_id);
 
   useEffect(() => {
+    if (projects.length > 0 && project.projectId === '') {
+      const firstProject = projects[0];
+      dispatch(
+        setProject({
+          id: firstProject.id,
+          name: firstProject.name,
+        })
+      );
+    }
+  }, [dispatch, projects, project]);
+
+  const { getTaskStatistics, statistics } = useGetTaskStatistics();
+  const { rubros, getRubros } = useGetRubrosByProject(project.projectId);
+
+  useEffect(() => {
+    getProjects();
     getRubros();
     getTaskStatistics();
-    getProjects();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [project, session]);
 

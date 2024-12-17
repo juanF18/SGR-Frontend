@@ -11,6 +11,9 @@ import { ProjectTableToolBar } from './ProjectsTableToolBar';
 import { useGetProjects } from '../hooks/useGetProjects';
 import { useDeleteProject } from '../hooks/useDeleteProject';
 import { FaFileInvoiceDollar, FaTasks } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { clearProject } from '@/redux/projectSlice';
 
 interface Props {
   projects: ProjectResponse[];
@@ -18,8 +21,10 @@ interface Props {
 }
 
 export function ProjectTable({ projects, isLoading }: Props) {
+  const dispatch = useDispatch();
   const { setSelectedProject, setIsEditModalOpen } = useProjectsContext();
   const { openModal } = useConfirmationModal();
+  const projectID = useSelector((state: RootState) => state.project.projectId);
   const { getProjects } = useGetProjects();
   const { deleteProject } = useDeleteProject(getProjects);
 
@@ -34,8 +39,15 @@ export function ProjectTable({ projects, isLoading }: Props) {
       async () => {
         try {
           const response = await deleteProject(project.id);
+          console.log('el project id', project.id);
+          console.log('el que esta en redux', project.id);
+
           if (response.status === 204) {
             showToast('Proyecto eliminado con éxito', 'success');
+            if (project.id === projectID) {
+              console.log('si elimino ??');
+              dispatch(clearProject());
+            }
           } else {
             showToast('Error al eliminar el proyecto', 'error');
           }

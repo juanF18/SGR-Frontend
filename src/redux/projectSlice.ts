@@ -12,11 +12,6 @@ const projectSlice = createSlice({
     clearProject: (state) => {
       state.projectName = '';
       state.projectId = '';
-
-      // Limpiamos el localStorage si es necesario
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('project');
-      }
     },
   },
 });
