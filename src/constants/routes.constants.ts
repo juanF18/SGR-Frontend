@@ -22,6 +22,7 @@ export const ROUTE_ACTIVITIES = '/activities';
 export const ROUTE_RUBROS = '/rubros';
 export const ROUTE_CDP = '/cdps';
 export const ROUTE_MOVEMENTS = '/movements';
+export const ROUTE_COUNTER_PARTS = '/counterparts';
 
 export const MENU_ITEMS: MenuItem[] = [
   {
@@ -58,6 +59,11 @@ export const MENU_ITEMS: MenuItem[] = [
     label: 'Movimientos',
     icon: AiOutlineTransaction,
     route: ROUTE_MOVEMENTS,
+  },
+  {
+    label: 'Contrapartidas',
+    icon: MdCategory,
+    route: ROUTE_COUNTER_PARTS,
   },
   {
     label: 'Usuarios',

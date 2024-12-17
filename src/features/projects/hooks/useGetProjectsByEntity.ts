@@ -8,12 +8,12 @@ export function useGetProjectsByEntity(entityId: string) {
     isFetching: isLoading,
     refetch: getProjects,
   } = useQuery({
+    enabled: !!entityId,
     queryKey: ['getProjectsByEntity', entityId],
     queryFn: async () => {
       const res = await axiosInstance.get<ProjectResponse[]>(`/projects/entity/${entityId}/`);
       return res.data;
     },
-    enabled: !!entityId,
   });
 
   const projects = data || [];
