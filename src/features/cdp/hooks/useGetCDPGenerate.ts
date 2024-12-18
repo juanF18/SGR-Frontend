@@ -13,7 +13,7 @@ export function useGetCDPGenerate() {
       try {
         // Cambiamos a GET en lugar de POST
         const response = await axiosInstance.get(
-          `/cdps/${cdps_id}/${user_id}/`, // Nueva ruta
+          `/cdps/${cdps_id}/user/${user_id}`, // Nueva ruta
           { responseType: 'blob' } // Indicamos que la respuesta será un archivo binario (PDF)
         );
         return response.data; // El archivo PDF se devuelve aquí como un Blob
