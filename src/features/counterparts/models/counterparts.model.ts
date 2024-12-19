@@ -15,3 +15,9 @@ export interface CounterPartsRequest {
   value_species: number;
   value_chash: number;
 }
+
+export interface CounterpartSum {
+  total_value_species: number;
+  total_value_cash: number;
+  total_value_combined: number;
+}

@@ -8,7 +8,7 @@ import {
   FaFileInvoice,
 } from 'react-icons/fa';
 import { MenuItem } from '@/models';
-import { MdAccountBalance, MdCategory, MdOutlineCheckCircle } from 'react-icons/md';
+import { MdAccountBalance, MdCategory, MdOutlineCheckCircle, MdTrendingFlat } from 'react-icons/md';
 import { AiOutlineTransaction } from 'react-icons/ai';
 
 export const ROUTE_SIGN_IN = '/sign-in';
@@ -24,6 +24,7 @@ export const ROUTE_CDP = '/cdps';
 export const ROUTE_MOVEMENTS = '/movements';
 export const ROUTE_COUNTER_PARTS = '/counterparts';
 export const ROUTE_COUNTER_PARTS_EXECUTION = '/counterparts-execution';
+export const ROUTE_MOVEMENTS_COUNTER_PARTS = '/movements-counterparts';
 
 export const MENU_ITEMS: MenuItem[] = [
   {
@@ -70,6 +71,11 @@ export const MENU_ITEMS: MenuItem[] = [
     label: 'Ejecución de Contrapartidas',
     icon: MdOutlineCheckCircle,
     route: ROUTE_COUNTER_PARTS_EXECUTION,
+  },
+  {
+    label: 'Movimientos de Contrapartidas',
+    icon: MdTrendingFlat,
+    route: ROUTE_MOVEMENTS_COUNTER_PARTS,
   },
   {
     label: 'Usuarios',
