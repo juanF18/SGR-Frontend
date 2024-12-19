@@ -31,8 +31,15 @@ export function OptionBar({ projects, onCreateProject, onSearchProject }: Props)
           name: firstProject.name,
         })
       );
+    } else if (projects.length > 0 && selectedProjectFromStore.projectId !== selectedProject?.id) {
+      console.log('entre');
+
+      const projectFromStore = projects.find(
+        (project) => project.id === selectedProjectFromStore.projectId
+      );
+      setSelectedProject(projectFromStore || null);
     }
-  }, [dispatch, projects, selectedProjectFromStore]);
+  }, [dispatch, projects, selectedProjectFromStore, selectedProject?.id]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSearchChange = (_: any, value: Project | null) => {
